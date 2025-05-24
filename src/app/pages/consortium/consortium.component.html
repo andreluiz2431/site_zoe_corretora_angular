@@ -1,0 +1,206 @@
+<div class="consortium-page">
+  <app-hero-banner
+    title="Consórcios para Realizar seus Sonhos"
+    subtitle="Adquira seu imóvel, veículo ou invista no seu negócio com parcelas que cabem no seu orçamento"
+    ctaText="Solicitar Informações"
+    imageUrl="https://images.pexels.com/photos/7654586/pexels-photo-7654586.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1">
+  </app-hero-banner>
+  
+  <div class="container">
+    <section class="intro-section">
+      <div class="section-header">
+        <h2>Vantagens do Consórcio</h2>
+        <p>Conheça os benefícios de adquirir bens através de consórcio</p>
+      </div>
+      
+      <div class="benefits-grid">
+        <div class="benefit-card">
+          <div class="benefit-icon">💰</div>
+          <h3>Sem Juros</h3>
+          <p>Ao contrário do financiamento tradicional, o consórcio não cobra juros, apenas taxa de administração.</p>
+        </div>
+        
+        <div class="benefit-card">
+          <div class="benefit-icon">📊</div>
+          <h3>Planejamento Financeiro</h3>
+          <p>Parcelas que cabem no seu orçamento, facilitando o planejamento financeiro a longo prazo.</p>
+        </div>
+        
+        <div class="benefit-card">
+          <div class="benefit-icon">🎯</div>
+          <h3>Contemplação Flexível</h3>
+          <p>Possibilidade de contemplação por sorteio ou lance, aumentando suas chances de ser contemplado.</p>
+        </div>
+        
+        <div class="benefit-card">
+          <div class="benefit-icon">🔄</div>
+          <h3>Flexibilidade na Escolha</h3>
+          <p>Liberdade para escolher o bem após a contemplação, de acordo com suas necessidades no momento.</p>
+        </div>
+      </div>
+    </section>
+    
+    <section class="consortium-options-section">
+      <div class="section-header">
+        <h2>Nossos Consórcios</h2>
+        <p>Escolha a melhor opção para realizar seus objetivos</p>
+      </div>
+      
+      <div class="consortium-options">
+        <div *ngFor="let option of consortiumOptions" [id]="'consortium-' + option.id" class="consortium-card">
+          <div class="consortium-image">
+            <img [src]="option.image" [alt]="option.title" class="img-fluid">
+          </div>
+          <div class="consortium-content">
+            <h3>{{option.title}}</h3>
+            <p class="description">{{option.description}}</p>
+            
+            <div class="consortium-details">
+              <div class="detail-item">
+                <span class="label">Valor:</span>
+                <span class="value">{{option.minValue | currency:'BRL':'symbol':'1.0-0'}} até {{option.maxValue | currency:'BRL':'symbol':'1.0-0'}}</span>
+              </div>
+              <div class="detail-item">
+                <span class="label">Prazo:</span>
+                <span class="value">{{option.minTerm}} a {{option.maxTerm}} meses</span>
+              </div>
+            </div>
+            
+            <div class="benefits-list">
+              <h4>Benefícios:</h4>
+              <ul>
+                <li *ngFor="let benefit of option.benefits">{{benefit}}</li>
+              </ul>
+            </div>
+            
+            <button (click)="requestInfo(option)" class="btn btn-gold">Solicitar Informações</button>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Information Request Form -->
+    <section *ngIf="showForm && !submitted" id="info-request-form" class="info-request-section">
+      <div class="form-container">
+        <div class="form-header">
+          <h3>Solicitar Informações</h3>
+          <p *ngIf="selectedConsortium">{{selectedConsortium.title}}</p>
+        </div>
+        
+        <form [formGroup]="infoRequestForm" (ngSubmit)="onSubmit()">
+          <div class="form-group">
+            <label for="name">Nome Completo</label>
+            <input 
+              type="text" 
+              id="name" 
+              formControlName="name" 
+              class="form-control" 
+              [ngClass]="{'is-invalid': infoRequestForm.get('name')?.invalid && infoRequestForm.get('name')?.touched}">
+            <div *ngIf="infoRequestForm.get('name')?.invalid && infoRequestForm.get('name')?.touched" class="error-message">
+              Nome completo é obrigatório
+            </div>
+          </div>
+          
+          <div class="form-row two-columns">
+            <div class="form-group">
+              <label for="email">E-mail</label>
+              <input 
+                type="email" 
+                id="email" 
+                formControlName="email" 
+                class="form-control"
+                [ngClass]="{'is-invalid': infoRequestForm.get('email')?.invalid && infoRequestForm.get('email')?.touched}">
+              <div *ngIf="infoRequestForm.get('email')?.invalid && infoRequestForm.get('email')?.touched" class="error-message">
+                <span *ngIf="infoRequestForm.get('email')?.errors?.['required']">E-mail é obrigatório</span>
+                <span *ngIf="infoRequestForm.get('email')?.errors?.['email']">E-mail inválido</span>
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <label for="phone">Telefone</label>
+              <input 
+                type="tel" 
+                id="phone" 
+                formControlName="phone" 
+                class="form-control"
+                [ngClass]="{'is-invalid': infoRequestForm.get('phone')?.invalid && infoRequestForm.get('phone')?.touched}">
+              <div *ngIf="infoRequestForm.get('phone')?.invalid && infoRequestForm.get('phone')?.touched" class="error-message">
+                Telefone é obrigatório
+              </div>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="message">Mensagem (opcional)</label>
+            <textarea 
+              id="message" 
+              formControlName="message" 
+              class="form-control" 
+              rows="4" 
+              placeholder="Descreva sua necessidade ou faça perguntas específicas"></textarea>
+          </div>
+          
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary" [disabled]="infoRequestForm.invalid">Enviar Solicitação</button>
+            <button type="button" class="btn btn-outline" (click)="resetForm()">Cancelar</button>
+          </div>
+        </form>
+      </div>
+    </section>
+    
+    <!-- Success Message -->
+    <section *ngIf="submitted" class="success-section">
+      <div class="success-container">
+        <div class="success-icon">✓</div>
+        <h3>Solicitação Enviada com Sucesso!</h3>
+        <p>Obrigado pelo seu interesse em nosso consórcio. Um de nossos consultores entrará em contato em breve com mais informações sobre os planos disponíveis.</p>
+        <button (click)="resetForm()" class="btn btn-outline">Voltar para Consórcios</button>
+      </div>
+    </section>
+    
+    <!-- FAQ Section -->
+    <section class="faq-section">
+      <div class="section-header">
+        <h2>Perguntas Frequentes</h2>
+        <p>Tire suas dúvidas sobre consórcios</p>
+      </div>
+      
+      <div class="faq-list">
+        <div class="faq-item">
+          <h3 class="faq-question">O que é consórcio?</h3>
+          <div class="faq-answer">
+            <p>Consórcio é um sistema de compra programada, onde um grupo de pessoas se une para formar um fundo comum, com o objetivo de adquirir bens como veículos e imóveis. Cada participante contribui com parcelas mensais e, por meio de sorteios ou lances, são contemplados para receber o valor do bem.</p>
+          </div>
+        </div>
+        
+        <div class="faq-item">
+          <h3 class="faq-question">Qual a diferença entre consórcio e financiamento?</h3>
+          <div class="faq-answer">
+            <p>A principal diferença está nos juros. No consórcio, você paga apenas o valor do bem e a taxa de administração, sem juros. Já no financiamento, além do valor do bem, você paga juros, o que torna o valor final muito maior. O consórcio é uma opção mais econômica a longo prazo.</p>
+          </div>
+        </div>
+        
+        <div class="faq-item">
+          <h3 class="faq-question">Como funciona a contemplação?</h3>
+          <div class="faq-answer">
+            <p>A contemplação pode ocorrer de duas formas: por sorteio, realizado periodicamente nas assembleias, ou por lance, onde o participante oferece antecipar um determinado número de parcelas para ter prioridade na contemplação.</p>
+          </div>
+        </div>
+        
+        <div class="faq-item">
+          <h3 class="faq-question">O que acontece se eu não for contemplado até o final do prazo?</h3>
+          <div class="faq-answer">
+            <p>Todos os participantes serão contemplados até o final do prazo do grupo. O último participante receberá sua carta de crédito na última assembleia, quando o grupo se encerra.</p>
+          </div>
+        </div>
+        
+        <div class="faq-item">
+          <h3 class="faq-question">Posso utilizar o FGTS para pagar parcelas do consórcio imobiliário?</h3>
+          <div class="faq-answer">
+            <p>Sim, é possível utilizar o FGTS para pagar parcelas de consórcio imobiliário, desde que sejam atendidas as regras estabelecidas pelo governo para uso do fundo.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>

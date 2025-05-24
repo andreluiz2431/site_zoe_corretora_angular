@@ -1,0 +1,128 @@
+<div class="home-page">
+  <!-- Hero Banner Section -->
+  <app-hero-banner
+    title="Proteja seu futuro com quem entende de seguros"
+    subtitle="Soluções personalizadas em seguros e consórcios para você e sua família"
+    ctaText="Solicite uma cotação"
+    ctaLink="/cotacao"
+    imageUrl="https://images.pexels.com/photos/3760067/pexels-photo-3760067.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1">
+  </app-hero-banner>
+  
+  <!-- Quick Quote Section -->
+  <section class="quick-quote-section">
+    <div class="container">
+      <app-quick-quote></app-quick-quote>
+    </div>
+  </section>
+  
+  <!-- Insurance Types Section -->
+  <section class="features-section">
+    <div class="container">
+      <div class="section-header">
+        <h2>Seguros para Todas as Necessidades</h2>
+        <p>Oferecemos uma ampla gama de seguros para proteger o que é mais importante para você</p>
+      </div>
+      
+      <div class="features-grid">
+        <app-feature-card
+          *ngFor="let insurance of insuranceTypes"
+          [title]="insurance.title"
+          [description]="insurance.description"
+          [icon]="insurance.icon"
+          [link]="insurance.link">
+        </app-feature-card>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Consortium Section -->
+  <section class="consortium-section">
+    <div class="container">
+      <div class="section-header">
+        <h2>Consórcios que Cabem no seu Bolso</h2>
+        <p>Realize seus sonhos sem comprometer seu orçamento com nossos planos de consórcio</p>
+      </div>
+      
+      <div class="features-grid">
+        <app-feature-card
+          *ngFor="let consortium of consortiumTypes"
+          [title]="consortium.title"
+          [description]="consortium.description"
+          [icon]="consortium.icon"
+          [link]="consortium.link"
+          [isGold]="true">
+        </app-feature-card>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Why Choose Us Section -->
+  <section class="why-choose-section">
+    <div class="container">
+      <div class="section-header">
+        <h2>Por que escolher a Seguro & Consórcio?</h2>
+        <p>Somos especializados em encontrar a melhor solução para você</p>
+      </div>
+      
+      <div class="benefits-grid">
+        <div class="benefit-item">
+          <div class="benefit-icon">🛡️</div>
+          <h3>Experiência Comprovada</h3>
+          <p>Mais de 20 anos no mercado de seguros e consórcios, atendendo milhares de clientes satisfeitos.</p>
+        </div>
+        
+        <div class="benefit-item">
+          <div class="benefit-icon">🤝</div>
+          <h3>Atendimento Personalizado</h3>
+          <p>Cada cliente é único e merece um atendimento customizado para suas necessidades específicas.</p>
+        </div>
+        
+        <div class="benefit-item">
+          <div class="benefit-icon">💰</div>
+          <h3>Melhores Condições</h3>
+          <p>Parceria com as principais seguradoras e administradoras para oferecer as melhores taxas do mercado.</p>
+        </div>
+        
+        <div class="benefit-item">
+          <div class="benefit-icon">⚡</div>
+          <h3>Agilidade</h3>
+          <p>Cotações rápidas e aprovação facilitada para que você tenha a proteção que precisa sem burocracia.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Testimonials Section -->
+  <section class="testimonials-section">
+    <div class="container">
+      <div class="section-header">
+        <h2>O que nossos clientes dizem</h2>
+        <p>A satisfação de nossos clientes é o nosso maior orgulho</p>
+      </div>
+      
+      <div class="testimonials-grid">
+        <app-testimonial
+          *ngFor="let testimonial of testimonials"
+          [name]="testimonial.name"
+          [photo]="testimonial.photo"
+          [text]="testimonial.text"
+          [role]="testimonial.role">
+        </app-testimonial>
+      </div>
+    </div>
+  </section>
+  
+  <!-- CTA Section -->
+  <section class="cta-section">
+    <div class="container">
+      <div class="cta-content">
+        <h2>Pronto para garantir sua proteção?</h2>
+        <p>Entre em contato conosco hoje mesmo e descubra como podemos ajudar você a proteger o que é mais importante.</p>
+        <div class="cta-buttons">
+          <a routerLink="/cotacao" class="btn btn-primary">Solicitar Cotação</a>
+          <a routerLink="/consorcios" class="btn btn-gold">Conhecer Consórcios</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

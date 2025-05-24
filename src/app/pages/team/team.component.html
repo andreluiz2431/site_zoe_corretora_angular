@@ -1,0 +1,65 @@
+<div class="team-page">
+  <app-hero-banner
+    title="Nossa Equipe"
+    subtitle="Conheça os profissionais que fazem a Seguro & Consórcio acontecer"
+    imageUrl="https://images.pexels.com/photos/1367272/pexels-photo-1367272.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1">
+  </app-hero-banner>
+  
+  <div class="container">
+    <section class="team-intro">
+      <div class="section-header">
+        <h2>Especialistas em Seguros e Consórcios</h2>
+        <p>Nossa equipe é formada por profissionais altamente qualificados e experientes, prontos para oferecer as melhores soluções para você.</p>
+      </div>
+    </section>
+    
+    <section class="team-members">
+      <div class="team-grid">
+        <div *ngFor="let member of teamMembers" class="team-card" (click)="openMemberDetails(member)">
+          <div class="member-photo">
+            <img [src]="member.photoUrl" [alt]="member.name" class="img-fluid">
+          </div>
+          <div class="member-info">
+            <h3>{{member.name}}</h3>
+            <p class="position">{{member.position}}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Member Details Modal -->
+    <div *ngIf="selectedMember" class="modal-overlay" (click)="closeMemberDetails()">
+      <div class="modal-content" (click)="$event.stopPropagation()">
+        <button class="close-modal" (click)="closeMemberDetails()">&times;</button>
+        
+        <div class="member-details">
+          <div class="member-photo-large">
+            <img [src]="selectedMember.photoUrl" [alt]="selectedMember.name" class="img-fluid">
+          </div>
+          <div class="member-info-detailed">
+            <h2>{{selectedMember.name}}</h2>
+            <p class="position">{{selectedMember.position}}</p>
+            
+            <div class="member-bio">
+              <h3>Sobre</h3>
+              <p>{{selectedMember.bio}}</p>
+            </div>
+            
+            <div *ngIf="selectedMember.specialties && selectedMember.specialties.length" class="member-specialties">
+              <h3>Especialidades</h3>
+              <ul>
+                <li *ngFor="let specialty of selectedMember.specialties">{{specialty}}</li>
+              </ul>
+            </div>
+            
+            <div class="member-contact">
+              <h3>Contato</h3>
+              <p *ngIf="selectedMember.email">Email: {{selectedMember.email}}</p>
+              <p *ngIf="selectedMember.phone">Telefone: {{selectedMember.phone}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

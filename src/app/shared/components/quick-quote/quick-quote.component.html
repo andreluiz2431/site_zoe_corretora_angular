@@ -1,0 +1,77 @@
+<div class="quick-quote-card">
+  <div class="quick-quote-header">
+    <h3>Cotação Rápida</h3>
+    <p>Preencha o formulário abaixo para receber uma cotação personalizada</p>
+  </div>
+  
+  <div *ngIf="!submitted; else successMessage" class="quick-quote-form">
+    <form (ngSubmit)="onSubmit()">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="insuranceType">Tipo de Seguro</label>
+          <select 
+            id="insuranceType" 
+            name="insuranceType" 
+            [(ngModel)]="selectedType" 
+            class="form-control"
+            required>
+            <option *ngFor="let type of insuranceTypes" [value]="type">{{type}}</option>
+          </select>
+        </div>
+      </div>
+      
+      <div class="form-row">
+        <div class="form-group">
+          <label for="name">Nome Completo</label>
+          <input 
+            type="text" 
+            id="name" 
+            name="name" 
+            [(ngModel)]="name" 
+            class="form-control" 
+            placeholder="Seu nome completo"
+            required>
+        </div>
+      </div>
+      
+      <div class="form-row two-columns">
+        <div class="form-group">
+          <label for="email">E-mail</label>
+          <input 
+            type="email" 
+            id="email" 
+            name="email" 
+            [(ngModel)]="email" 
+            class="form-control" 
+            placeholder="seu@email.com"
+            required>
+        </div>
+        
+        <div class="form-group">
+          <label for="phone">Telefone</label>
+          <input 
+            type="tel" 
+            id="phone" 
+            name="phone" 
+            [(ngModel)]="phone" 
+            class="form-control" 
+            placeholder="(00) 00000-0000"
+            required>
+        </div>
+      </div>
+      
+      <button type="submit" class="btn btn-primary btn-block" [disabled]="!name || !email || !phone">
+        Solicitar Cotação
+      </button>
+    </form>
+  </div>
+  
+  <ng-template #successMessage>
+    <div class="success-message">
+      <div class="success-icon">✓</div>
+      <h3>Solicitação Enviada!</h3>
+      <p>Recebemos sua solicitação de cotação. Um de nossos especialistas entrará em contato em breve.</p>
+      <button (click)="resetForm()" class="btn btn-outline">Nova Cotação</button>
+    </div>
+  </ng-template>
+</div>

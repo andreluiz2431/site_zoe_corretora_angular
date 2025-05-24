@@ -1,0 +1,13 @@
+<section class="hero-banner" [style.background-image]="'url(' + imageUrl + ')'">
+  <div class="hero-overlay"></div>
+  <div class="container">
+    <div class="hero-content">
+      <h1 class="hero-title">{{title}}</h1>
+      <p class="hero-subtitle">{{subtitle}}</p>
+      <div class="hero-cta">
+        <a *ngIf="ctaText" [routerLink]="ctaLink" class="btn btn-primary">{{ctaText}}</a>
+        <a *ngIf="secondaryCtaText" [routerLink]="secondaryCtaLink" class="btn btn-outline">{{secondaryCtaText}}</a>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,31 @@
+<header class="site-header">
+  <div class="container header-container">
+    <div class="logo">
+      <a routerLink="/">
+        <span class="logo-text">Seguro<span class="ampersand">&</span>Consórcio</span>
+      </a>
+    </div>
+    
+    <button class="menu-toggle" (click)="toggleMenu()" aria-label="Toggle menu">
+      <span [ngClass]="{'open': isMenuOpen}"></span>
+    </button>
+    
+    <nav class="main-nav" [ngClass]="{'open': isMenuOpen}">
+      <ul class="nav-list">
+        <li><a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Início</a></li>
+        <li><a routerLink="/sobre" routerLinkActive="active">Sobre</a></li>
+        <li><a routerLink="/colaboradores" routerLinkActive="active">Equipe</a></li>
+        <li><a routerLink="/cotacao" routerLinkActive="active">Cotação</a></li>
+        <li><a routerLink="/consorcios" routerLinkActive="active">Consórcios</a></li>
+        <li *ngIf="isLoggedIn"><a routerLink="/cliente" routerLinkActive="active">Área do Cliente</a></li>
+        <li *ngIf="!isLoggedIn"><a routerLink="/login" routerLinkActive="active">Login</a></li>
+        <li *ngIf="isLoggedIn"><a (click)="logout()" style="cursor: pointer;">Sair</a></li>
+        <li class="theme-toggle">
+          <button class="theme-btn" (click)="toggleTheme()" [attr.aria-label]="isDarkTheme ? 'Ativar modo claro' : 'Ativar modo escuro'">
+            <span class="theme-icon" [ngClass]="{'dark': isDarkTheme}"></span>
+          </button>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</header>

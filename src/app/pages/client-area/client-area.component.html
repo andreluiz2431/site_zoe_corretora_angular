@@ -1,0 +1,123 @@
+<div class="client-area-page">
+  <div class="container">
+    <div class="page-header">
+      <h1>Área do Cliente</h1>
+      <p *ngIf="user">Bem-vindo, {{user.name}}</p>
+    </div>
+    
+    <div class="dashboard">
+      <!-- Quick Stats -->
+      <div class="dashboard-stats">
+        <div class="stat-card">
+          <div class="stat-value">{{policies.length}}</div>
+          <div class="stat-label">Apólices Ativas</div>
+        </div>
+        
+        <div class="stat-card">
+          <div class="stat-value">{{quotes.length}}</div>
+          <div class="stat-label">Cotações em Andamento</div>
+        </div>
+        
+        <div class="stat-card">
+          <div class="stat-value">{{documents.length}}</div>
+          <div class="stat-label">Documentos</div>
+        </div>
+      </div>
+      
+      <!-- Policies Section -->
+      <div class="dashboard-section">
+        <div class="section-header">
+          <h2>Minhas Apólices</h2>
+          <button class="btn btn-outline">Ver Todas</button>
+        </div>
+        
+        <div class="table-responsive">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Número</th>
+                <th>Tipo</th>
+                <th>Vigência</th>
+                <th>Prêmio (R$)</th>
+                <th>Status</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let policy of policies">
+                <td>{{policy.id}}</td>
+                <td>{{policy.type}}</td>
+                <td>{{policy.startDate}} até {{policy.endDate}}</td>
+                <td>{{policy.premium | number:'1.2-2'}}</td>
+                <td>
+                  <span class="status-badge active">{{policy.status}}</span>
+                </td>
+                <td>
+                  <button class="action-btn">Detalhes</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      
+      <!-- Quotes Section -->
+      <div class="dashboard-section">
+        <div class="section-header">
+          <h2>Cotações Recentes</h2>
+          <button class="btn btn-outline">Ver Todas</button>
+        </div>
+        
+        <div class="table-responsive">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Data</th>
+                <th>Tipo</th>
+                <th>Detalhes</th>
+                <th>Status</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let quote of quotes">
+                <td>{{quote.id}}</td>
+                <td>{{quote.date}}</td>
+                <td>{{quote.type}}</td>
+                <td>{{quote.details}}</td>
+                <td>
+                  <span class="status-badge" [ngClass]="{'pending': quote.status === 'Em análise', 'approved': quote.status === 'Aprovado'}">
+                    {{quote.status}}
+                  </span>
+                </td>
+                <td>
+                  <button class="action-btn">Detalhes</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      
+      <!-- Documents Section -->
+      <div class="dashboard-section">
+        <div class="section-header">
+          <h2>Documentos</h2>
+          <button class="btn btn-outline">Ver Todos</button>
+        </div>
+        
+        <div class="documents-grid">
+          <div *ngFor="let doc of documents" class="document-card">
+            <div class="document-icon">📄</div>
+            <div class="document-info">
+              <h4>{{doc.name}}</h4>
+              <p>{{doc.type}} · {{doc.size}} · {{doc.date}}</p>
+            </div>
+            <button class="btn btn-outline btn-sm">Download</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

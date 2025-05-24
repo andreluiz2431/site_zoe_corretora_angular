@@ -1,0 +1,10 @@
+<div class="feature-card" [ngClass]="{'gold': isGold}">
+  <div class="feature-icon" [ngClass]="{'gold': isGold}">
+    {{icon}}
+  </div>
+  <div class="feature-content">
+    <h3 class="feature-title">{{title}}</h3>
+    <p class="feature-description">{{description}}</p>
+  </div>
+  <a [routerLink]="link" class="feature-link">Saiba mais</a>
+</div>

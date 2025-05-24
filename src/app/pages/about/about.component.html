@@ -1,0 +1,91 @@
+<div class="about-page">
+  <app-hero-banner
+    title="Sobre a Seguro & Consórcio"
+    subtitle="Conheça nossa história, missão e valores"
+    imageUrl="https://images.pexels.com/photos/3183197/pexels-photo-3183197.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1">
+  </app-hero-banner>
+  
+  <div class="container">
+    <!-- Company Story -->
+    <section class="story-section">
+      <div class="section-content">
+        <div class="section-text">
+          <h2>Nossa História</h2>
+          <p>Fundada em 2005, a Seguro & Consórcio nasceu com o propósito de oferecer soluções em seguros que realmente atendessem às necessidades dos clientes, com transparência e personalização.</p>
+          
+          <p>Começamos como uma pequena corretora especializada em seguros de automóveis, mas rapidamente expandimos nossa atuação para incluir seguros residenciais, empresariais, de vida e saúde.</p>
+          
+          <p>Em 2012, incorporamos os consórcios ao nosso portfólio, oferecendo uma alternativa para aquisição de bens sem juros, ampliando ainda mais as possibilidades para nossos clientes realizarem seus sonhos.</p>
+          
+          <p>Hoje, contamos com uma equipe de profissionais altamente qualificados, parceiros estratégicos e milhares de clientes satisfeitos em todo o Brasil. Nossa trajetória é marcada pelo compromisso com a excelência e pelo desejo constante de evolução.</p>
+        </div>
+        <div class="section-image">
+          <img src="https://images.pexels.com/photos/3184338/pexels-photo-3184338.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Equipe de profissionais" class="img-fluid">
+        </div>
+      </div>
+    </section>
+    
+    <!-- Mission, Vision, Values -->
+    <section class="mvv-section">
+      <div class="mvv-grid">
+        <div class="mvv-card">
+          <div class="mvv-icon">🎯</div>
+          <h3>Missão</h3>
+          <p>Proporcionar proteção e tranquilidade através de soluções personalizadas em seguros e consórcios, ajudando nossos clientes a realizarem seus sonhos com segurança financeira.</p>
+        </div>
+        
+        <div class="mvv-card">
+          <div class="mvv-icon">👁️</div>
+          <h3>Visão</h3>
+          <p>Ser reconhecida como a corretora de referência em excelência, inovação e atendimento personalizado no mercado de seguros e consórcios do Brasil.</p>
+        </div>
+        
+        <div class="mvv-card">
+          <div class="mvv-icon">❤️</div>
+          <h3>Valores</h3>
+          <ul class="values-list">
+            <li>Integridade e transparência em todas as relações</li>
+            <li>Compromisso com a satisfação do cliente</li>
+            <li>Excelência e aprimoramento contínuo</li>
+            <li>Responsabilidade social e sustentabilidade</li>
+            <li>Valorização das pessoas e trabalho em equipe</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Timeline/Milestones -->
+    <section class="timeline-section">
+      <div class="section-header">
+        <h2>Nossa Trajetória</h2>
+        <p>Principais marcos na história da Seguro & Consórcio</p>
+      </div>
+      
+      <div class="timeline">
+        <div *ngFor="let milestone of milestones; let i = index" class="timeline-item" [ngClass]="{'left': i % 2 === 0, 'right': i % 2 !== 0}">
+          <div class="timeline-badge">
+            <span class="year">{{milestone.year}}</span>
+          </div>
+          <div class="timeline-content">
+            <h3>{{milestone.title}}</h3>
+            <p>{{milestone.description}}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Partners/Affiliations -->
+    <section class="partners-section">
+      <div class="section-header">
+        <h2>Nossos Parceiros</h2>
+        <p>Trabalhamos com as melhores seguradoras e administradoras do mercado</p>
+      </div>
+      
+      <div class="partners-grid">
+        <div *ngFor="let partner of partners" class="partner-logo">
+          <img [src]="partner.logo" [alt]="partner.name" class="img-fluid">
+        </div>
+      </div>
+    </section>
+  </div>
+</div>

@@ -1,0 +1,72 @@
+.quick-quote-card {
+  background-color: var(--bg-color);
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  padding: calc(var(--spacing-base) * 3);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.quick-quote-header {
+  text-align: center;
+  margin-bottom: calc(var(--spacing-base) * 3);
+}
+
+.quick-quote-header h3 {
+  color: var(--red-primary);
+  margin-bottom: var(--spacing-base);
+}
+
+.quick-quote-form {
+  animation: fadeIn 0.5s ease-in;
+}
+
+.form-row {
+  margin-bottom: calc(var(--spacing-base) * 2);
+}
+
+.form-row.two-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: calc(var(--spacing-base) * 2);
+}
+
+.btn-block {
+  display: block;
+  width: 100%;
+  margin-top: calc(var(--spacing-base) * 2);
+}
+
+.success-message {
+  text-align: center;
+  padding: calc(var(--spacing-base) * 2);
+  animation: fadeIn 0.5s ease-in;
+}
+
+.success-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  background-color: var(--success);
+  color: white;
+  font-size: 1.8rem;
+  border-radius: 50%;
+  margin: 0 auto calc(var(--spacing-base) * 2);
+}
+
+.success-message h3 {
+  color: var(--success);
+  margin-bottom: var(--spacing-base);
+}
+
+.success-message p {
+  margin-bottom: calc(var(--spacing-base) * 2);
+}
+
+@media (max-width: 768px) {
+  .form-row.two-columns {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-base);
+  }
+}
