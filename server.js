@@ -2,14 +2,15 @@ const express = require('express');
 const path = require('path');
 
 const app = express();
-
 const PORT = process.env.PORT || 8080;
-const DIST_DIR = path.join(__dirname, 'dist/site-zoe-corretora-angular');
 
-app.use(express.static(DIST_DIR));
+// Ajuste o nome conforme a pasta gerada pelo ng build
+const DIST_FOLDER = path.join(__dirname, 'dist/demo');
+
+app.use(express.static(DIST_FOLDER));
 
 app.get('*', (req, res) => {
-  res.sendFile(path.join(DIST_DIR, 'index.html'));
+  res.sendFile(path.join(DIST_FOLDER, 'index.html'));
 });
 
 app.listen(PORT, () => {
