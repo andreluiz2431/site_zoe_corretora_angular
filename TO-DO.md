@@ -14,6 +14,8 @@
 
 ✅ Desenvolver visualização
 
+[] Correção de dados estáticos
+
 [] Desenvolver integração com Google Auth
 
 [] Desenvolver salvamento de cookies

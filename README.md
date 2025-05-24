@@ -20,9 +20,6 @@ Este projeto é um site institucional desenvolvido com Angular para a Zoe Corret
 
 2. Instale as dependências:
 
-bash
-Copiar
-Editar
 npm install
 
 ## ⚙️ Comandos Disponíveis
@@ -104,8 +101,8 @@ Contribuições são sempre bem-vindas! Para colaborar:
 
 ### Para mais informações, dúvidas ou sugestões, entre em contato:
 
-- Desenvolvedor: André Luiz
+- Desenvolvedor: André
 
-- E-mail: seu-email@example.com
+- E-mail: alm28062001@gmail.com
 
-- LinkedIn: linkedin.com/in/seu-perfil
+- LinkedIn: linkedin.com/in/andré-luiz-montanha-de-abreu-ab9a42162
