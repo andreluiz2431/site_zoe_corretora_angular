@@ -15,6 +15,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   isMenuOpen = false;
   isDarkTheme = false;
   isLoggedIn = false;
+  isRotating = false;
   private scrollListener: any;
 
   constructor(
@@ -70,6 +71,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   toggleTheme(): void {
+    this.isRotating = true;
+    setTimeout(() => {
+      this.isRotating = false;
+    }, 500);
     this.themeService.toggleTheme();
   }
 
