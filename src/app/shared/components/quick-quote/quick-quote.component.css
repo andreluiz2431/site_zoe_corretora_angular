@@ -4,6 +4,9 @@
   box-shadow: var(--box-shadow);
   padding: calc(var(--spacing-base) * 3);
   transition: transform 0.3s, box-shadow 0.3s;
+  width: 50%;
+  margin-left: 25%;
+  margin-right: 25%;
 }
 
 .quick-quote-header {
@@ -68,5 +71,10 @@
   .form-row.two-columns {
     grid-template-columns: 1fr;
     gap: var(--spacing-base);
+  }
+  .quick-quote-card {
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
   }
 }
