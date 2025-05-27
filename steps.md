@@ -7,18 +7,6 @@
   - Textos overlay com fonte Roboto
 - [x] Corrigir ou implementar de forma diferente o navbar
   - Responsivo
-- [ ] Implementar seção "Nossos Serviços" com cards
-  - Cards com ícones Material Design
-  - Efeito hover com elevação
-  - Cores da identidade visual (#primary, #secondary)
-- [ ] Adicionar seção de depoimentos de clientes
-  - Carrossel automático
-  - Foto do cliente (150x150px)
-  - Estrelas de avaliação
-- [ ] Formulário de contato rápido
-  - Campos: Nome, Email, Telefone, Assunto
-  - Validação em tempo real
-  - Integração com API de envio de emails
 
 ## 👥 Área do Cliente
 - [ ] Implementar sistema de login
