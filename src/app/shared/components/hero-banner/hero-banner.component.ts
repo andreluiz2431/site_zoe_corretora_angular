@@ -23,21 +23,21 @@ export class HeroBannerComponent implements OnInit, OnDestroy {
 
   slides: BannerSlide[] = [
     {
-      imageUrl: 'assets/images/banner/seguros.jpg',
+      imageUrl: 'assets/images/banner/seguros.png',
       title: 'Seguros para Todos os Momentos',
       subtitle: 'Proteja o que importa com as melhores coberturas do mercado',
       ctaText: 'Fazer Cotação',
       ctaLink: '/cotacao'
     },
     {
-      imageUrl: 'assets/images/banner/consorcio.jpg',
+      imageUrl: 'assets/images/banner/consorcio.png',
       title: 'Consórcio que Cabe no seu Bolso',
       subtitle: 'Realize seus sonhos com parcelas que cabem no seu orçamento',
       ctaText: 'Simular Agora',
       ctaLink: '/consorcio'
     },
     {
-      imageUrl: 'assets/images/banner/familia.jpg',
+      imageUrl: 'assets/images/banner/familia.png',
       title: 'Proteção para sua Família',
       subtitle: 'Seguros personalizados para garantir o futuro de quem você ama',
       ctaText: 'Saiba Mais',
