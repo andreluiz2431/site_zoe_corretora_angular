@@ -1,13 +1,37 @@
-<section class="hero-banner" [style.background-image]="'url(' + imageUrl + ')'">
-  <div class="hero-overlay"></div>
-  <div class="container">
-    <div class="hero-content">
-      <h1 class="hero-title">{{title}}</h1>
-      <p class="hero-subtitle">{{subtitle}}</p>
-      <div class="hero-cta">
-        <a *ngIf="ctaText" [routerLink]="ctaLink" class="btn btn-primary">{{ctaText}}</a>
-        <a *ngIf="secondaryCtaText" [routerLink]="secondaryCtaLink" class="btn btn-outline">{{secondaryCtaText}}</a>
+<div class="hero-banner" 
+     (mouseenter)="pauseSlideshow()" 
+     (mouseleave)="resumeSlideshow()">
+  
+  <div class="slides-container">
+    @for (slide of slides; track slide; let i = $index) {
+      <div class="slide" 
+           [class.active]="i === currentSlide"
+           [style.backgroundImage]="'url(' + slide.imageUrl + ')'">
+        <div class="slide-content">
+          <h1>{{slide.title}}</h1>
+          <p>{{slide.subtitle}}</p>
+          @if (slide.ctaText && slide.ctaLink) {
+            <a [routerLink]="slide.ctaLink" class="cta-button">{{slide.ctaText}}</a>
+          }
+        </div>
       </div>
-    </div>
+    }
   </div>
-</section>
+
+  <button class="nav-button prev" (click)="previousSlide()">
+    <span class="material-icons">chevron_left</span>
+  </button>
+  
+  <button class="nav-button next" (click)="nextSlide()">
+    <span class="material-icons">chevron_right</span>
+  </button>
+
+  <div class="slide-indicators">
+    @for (slide of slides; track slide; let i = $index) {
+      <button class="indicator" 
+              [class.active]="i === currentSlide"
+              (click)="goToSlide(i)">
+      </button>
+    }
+  </div>
+</div>

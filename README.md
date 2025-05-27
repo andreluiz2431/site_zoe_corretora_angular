@@ -22,6 +22,10 @@ Este projeto é um site institucional desenvolvido com Angular para a Zoe Corret
 
 npm install
 
+npm install -g @angular/cli@19.0.7
+
+npm install serve --save
+
 ## ⚙️ Comandos Disponíveis
 
 ### Servidor de desenvolvimento local:
