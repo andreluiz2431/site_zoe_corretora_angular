@@ -50,6 +50,7 @@
 
 /* Dark Theme */
 .dark-theme {
+  --blue-primary: var(--red-dark);
   --bg-color: var(--gray-900);
   --bg-secondary: var(--gray-800);
   --text-color: var(--gray-200);

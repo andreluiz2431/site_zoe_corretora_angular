@@ -56,6 +56,7 @@
   font-weight: 700;
   margin-bottom: 1rem;
   animation: fadeInUp 0.5s ease-out;
+  color: var(--white);
 }
 
 .slide-content p {
@@ -146,7 +147,7 @@
 /* Responsividade */
 @media (max-width: 768px) {
   .hero-banner {
-    height: 400px;
+    height: 500px;
   }
 
   .slide-content h1 {
@@ -164,7 +165,7 @@
 
 @media (max-width: 480px) {
   .hero-banner {
-    height: 300px;
+    height: 400px;
   }
 
   .slide-content h1 {

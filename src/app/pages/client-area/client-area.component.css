@@ -13,6 +13,10 @@
   margin-bottom: var(--spacing-base);
 }
 
+h1:before {
+  color: var(--white);
+}
+
 /* Dashboard Stats */
 .dashboard-stats {
   display: grid;
