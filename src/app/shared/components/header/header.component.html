@@ -1,30 +1,82 @@
-<header class="site-header">
+<header class="site-header" [class.nav-open]="isMenuOpen">
   <div class="container header-container">
     <div class="logo">
       <a routerLink="/">
+        <img src="assets/images/logo.png" alt="Zoe Corretora" class="logo-img">
         <span class="logo-text">Zoe Corretora de Seguros</span>
       </a>
     </div>
     
-    <button class="menu-toggle" (click)="toggleMenu()" aria-label="Toggle menu">
-      <span [ngClass]="{'open': isMenuOpen}"></span>
+    <button class="menu-toggle" (click)="toggleMenu()" [attr.aria-expanded]="isMenuOpen">
+      <span class="hamburger" [class.open]="isMenuOpen"></span>
     </button>
-
-    <!--<app-navbar></app-navbar>-->
     
-    <nav class="main-nav" [ngClass]="{'open': isMenuOpen}">
+    <nav class="main-nav" [class.open]="isMenuOpen">
       <ul class="nav-list">
-        <li><a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Início</a></li>
-        <li><a routerLink="/sobre" routerLinkActive="active">Sobre</a></li>
-        <li><a routerLink="/colaboradores" routerLinkActive="active">Equipe</a></li>
-        <li><a routerLink="/cotacao" routerLinkActive="active">Cotação</a></li>
-        <li><a routerLink="/consorcios" routerLinkActive="active">Consórcios</a></li>
-        <li *ngIf="isLoggedIn"><a routerLink="/cliente" routerLinkActive="active">Área do Cliente</a></li>
-        <li *ngIf="!isLoggedIn"><a routerLink="/login" routerLinkActive="active">Login</a></li>
-        <li *ngIf="isLoggedIn"><a (click)="logout()" style="cursor: pointer;">Sair</a></li>
+        <li>
+          <a routerLink="/" 
+             routerLinkActive="active" 
+             [routerLinkActiveOptions]="{exact: true}"
+             (click)="closeMenu()">
+            Início
+          </a>
+        </li>
+        <li>
+          <a routerLink="/sobre" 
+             routerLinkActive="active"
+             (click)="closeMenu()">
+            Sobre
+          </a>
+        </li>
+        <li>
+          <a routerLink="/colaboradores" 
+             routerLinkActive="active"
+             (click)="closeMenu()">
+            Equipe
+          </a>
+        </li>
+        <li>
+          <a routerLink="/cotacao" 
+             routerLinkActive="active"
+             (click)="closeMenu()">
+            Cotação
+          </a>
+        </li>
+        <li>
+          <a routerLink="/consorcios" 
+             routerLinkActive="active"
+             (click)="closeMenu()">
+            Consórcios
+          </a>
+        </li>
+        <li *ngIf="isLoggedIn">
+          <a routerLink="/cliente" 
+             routerLinkActive="active"
+             (click)="closeMenu()">
+            Área do Cliente
+          </a>
+        </li>
+        <li *ngIf="!isLoggedIn">
+          <a routerLink="/login" 
+             routerLinkActive="active"
+             class="login-btn"
+             (click)="closeMenu()">
+            Login
+          </a>
+        </li>
+        <li *ngIf="isLoggedIn">
+          <a (click)="logout(); closeMenu()" 
+             class="logout-btn">
+            Sair
+          </a>
+        </li>
         <li class="theme-toggle">
-          <button class="theme-btn" (click)="toggleTheme()" [attr.aria-label]="isDarkTheme ? 'Ativar modo claro' : 'Ativar modo escuro'">
-            <span class="theme-icon" [ngClass]="{'dark': isDarkTheme}"></span>
+          <button class="theme-btn" 
+                  (click)="toggleTheme()" 
+                  [attr.aria-label]="isDarkTheme ? 'Ativar modo claro' : 'Ativar modo escuro'">
+            <span class="material-icons">
+              {{isDarkTheme ? 'light_mode' : 'dark_mode'}}
+            </span>
           </button>
         </li>
       </ul>

@@ -5,7 +5,7 @@
   - Dimensões recomendadas: 1920x600px
   - Formato: JPG/PNG otimizados
   - Textos overlay com fonte Roboto
-- [ ] Corrigir ou implentar de forma diferente o navbar
+- [x] Corrigir ou implementar de forma diferente o navbar
   - Responsivo
 - [ ] Implementar seção "Nossos Serviços" com cards
   - Cards com ícones Material Design
