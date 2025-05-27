@@ -1,19 +1,5 @@
-<header class="site-header">
-  <div class="container header-container">
-    <div class="logo">
-      <a routerLink="/">
-        <span class="logo-text">Zoe Corretora de Seguros</span>
-      </a>
-    </div>
-    
-    <button class="menu-toggle" (click)="toggleMenu()" aria-label="Toggle menu">
-      <span [ngClass]="{'open': isMenuOpen}"></span>
-    </button>
-
-    <!--<app-navbar></app-navbar>-->
-    
-    <nav class="main-nav" [ngClass]="{'open': isMenuOpen}">
-      <ul class="nav-list">
+<nav class="navbar">
+    <ul class="nav-links">
         <li><a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Início</a></li>
         <li><a routerLink="/sobre" routerLinkActive="active">Sobre</a></li>
         <li><a routerLink="/colaboradores" routerLinkActive="active">Equipe</a></li>
@@ -24,10 +10,9 @@
         <li *ngIf="isLoggedIn"><a (click)="logout()" style="cursor: pointer;">Sair</a></li>
         <li class="theme-toggle">
           <button class="theme-btn" (click)="toggleTheme()" [attr.aria-label]="isDarkTheme ? 'Ativar modo claro' : 'Ativar modo escuro'">
-            <span class="theme-icon" [ngClass]="{'dark': isDarkTheme}"></span>
+            <span class="theme-icon" ></span>
           </button>
         </li>
-      </ul>
-    </nav>
-  </div>
-</header>
+    </ul>
+  </nav>
+  

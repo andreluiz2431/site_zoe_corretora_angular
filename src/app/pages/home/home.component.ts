@@ -75,7 +75,7 @@ export class HomeComponent {
     {
       name: 'João Silva',
       photo: 'https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-      text: 'Economizei mais de 30% no seguro do meu carro graças à consultoria especializada da Seguro & Consórcio. Recomendo a todos!',
+      text: 'Economizei mais de 30% no seguro do meu carro graças à consultoria especializada da Zoe Corretora de Seguros. Recomendo a todos!',
       role: 'Cliente de Seguro Auto'
     },
     {

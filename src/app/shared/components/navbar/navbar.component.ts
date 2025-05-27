@@ -1,18 +1,16 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { ThemeService } from '../../../core/services/theme.service';
 import { AuthService } from '../../../core/services/auth.service';
-import { NavbarComponent } from '../navbar/navbar.component';
 
 @Component({
-  selector: 'app-header',
+  selector: 'app-navbar',
   standalone: true,
-  imports: [CommonModule, RouterModule, NavbarComponent],
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+  imports: [RouterModule],
+  templateUrl: './navbar.component.html',
+  styleUrl: './navbar.component.css'
 })
-export class HeaderComponent {
+export class NavbarComponent {
   isMenuOpen = false;
   isDarkTheme = false;
   isLoggedIn = false;
