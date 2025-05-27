@@ -23,7 +23,7 @@ export class HeroBannerComponent implements OnInit, OnDestroy {
 
   slides: BannerSlide[] = [
     {
-      imageUrl: 'assets/images/banner/seguros.png',
+      imageUrl: '../../../../assets/images/banner/seguros.png',
       title: 'Seguros para Todos os Momentos',
       subtitle: 'Proteja o que importa com as melhores coberturas do mercado',
       ctaText: 'Fazer Cotação',
