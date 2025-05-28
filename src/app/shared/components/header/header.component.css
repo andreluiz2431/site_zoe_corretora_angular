@@ -265,3 +265,22 @@
     justify-content: center;
   }
 }
+
+/* Remove outline azul e mantém acessibilidade */
+.main-nav a,
+.main-nav button,
+.logo a,
+.theme-btn,
+.menu-toggle {
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.main-nav a:focus-visible,
+.main-nav button:focus-visible,
+.logo a:focus-visible,
+.theme-btn:focus-visible,
+.menu-toggle:focus-visible {
+  box-shadow: 0 0 0 2px var(--gold-primary);
+  border-radius: 8px;
+}

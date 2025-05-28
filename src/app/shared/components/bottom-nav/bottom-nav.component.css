@@ -146,4 +146,19 @@
   .bottom-nav {
     display: flex;
   }
+}
+
+/* Remove outline azul e mantém acessibilidade */
+.bottom-nav a,
+.bottom-nav button,
+.profile-dropdown a {
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.bottom-nav a:focus-visible,
+.bottom-nav button:focus-visible,
+.profile-dropdown a:focus-visible {
+  box-shadow: 0 0 0 2px var(--gold-primary);
+  border-radius: 8px;
 } 
