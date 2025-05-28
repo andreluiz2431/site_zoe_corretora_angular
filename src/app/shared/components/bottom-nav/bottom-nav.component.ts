@@ -15,6 +15,7 @@ export class BottomNavComponent {
   isLoggedIn = false;
   isDarkTheme = false;
   isRotating = false;
+  isProfileMenuOpen = false;
 
   constructor(
     private authService: AuthService,
@@ -35,5 +36,18 @@ export class BottomNavComponent {
       this.isRotating = false;
     }, 500);
     this.themeService.toggleTheme();
+  }
+
+  toggleProfileMenu(): void {
+    this.isProfileMenuOpen = !this.isProfileMenuOpen;
+  }
+
+  closeProfileMenu(): void {
+    this.isProfileMenuOpen = false;
+  }
+
+  async logout(): Promise<void> {
+    await this.authService.logout();
+    this.closeProfileMenu();
   }
 } 
