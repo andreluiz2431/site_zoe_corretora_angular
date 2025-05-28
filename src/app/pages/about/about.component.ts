@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 import { HeroBannerComponent } from '../../shared/components/hero-banner/hero-banner.component';
 
 @Component({
   selector: 'app-about',
   standalone: true,
-  imports: [CommonModule, HeroBannerComponent],
+  imports: [CommonModule, RouterModule, HeroBannerComponent],
   templateUrl: './about.component.html',
   styleUrls: ['./about.component.css']
 })
