@@ -8,24 +8,120 @@
 - [x] Corrigir ou implementar de forma diferente o navbar
   - Responsivo
 
-## 👥 Área do Cliente
-- [ ] Implementar sistema de login
-  - Autenticação via Firebase
+## 🔐 Core (Implementação)
+
+### Autenticação
+- [ ] Melhorar AuthService
+  - Implementar refresh token
+  - Adicionar persistência de estado
+  - Implementar logout com limpeza de dados
+  - Adicionar interceptor para tokens
+  - Implementar sistema de roles/permissões
+
+### Guards
+- [ ] Melhorar AuthGuard
+  - Adicionar verificação de roles
+  - Implementar redirecionamento inteligente
+  - Adicionar guard para rotas públicas
+- [ ] Criar RoleGuard
+  - Verificação de permissões específicas
+  - Suporte a múltiplas roles
+  - Redirecionamento baseado em perfil
+
+### Interceptors
+- [ ] Criar AuthInterceptor
+  - Injeção automática de tokens
+  - Tratamento de 401/403
+  - Refresh token automático
+- [ ] Criar ErrorInterceptor
+  - Tratamento global de erros
+  - Logging centralizado
+  - Feedback para o usuário
+- [ ] Criar LoadingInterceptor
+  - Controle global de loading
+  - Timeout handling
+  - Cancelamento de requisições
+
+### Models
+- [ ] Expandir UserModel
+  - Adicionar perfil completo
+  - Preferências do usuário
+  - Histórico de ações
+  - Notificações
+- [ ] Melhorar QuoteRequestModel
+  - Adicionar validações
+  - Expandir tipos de cotação
+  - Adicionar campos customizados
+- [ ] Criar PolicyModel
+  - Detalhes completos da apólice
+  - Histórico de renovações
+  - Documentos vinculados
+- [ ] Criar NotificationModel
+  - Tipos de notificação
+  - Status de leitura
+  - Ações vinculadas
+
+### Services
+- [ ] Expandir AuthService
+  - Integração com Firebase
+  - Social login (Google)
   - Recuperação de senha
-  - Remember me
-  - Validação de token JWT
-- [ ] Dashboard do cliente
-  - Resumo de apólices ativas
-  - Gráfico de valores/vencimentos
-  - Documentos disponíveis
-- [ ] Sistema de notificações
+  - Verificação de email
+- [ ] Melhorar QuoteService
+  - Cache de cotações
+  - Retry mechanism
+  - Websocket para atualizações
+- [ ] Criar NotificationService
   - Push notifications
-  - Alertas de vencimento
-  - Novidades e ofertas
-- [ ] Upload de documentos
-  - Suporte para PDF/JPG
-  - Limite de 10MB por arquivo
-  - Preview antes do upload
+  - Email notifications
+  - SMS notifications
+- [ ] Criar StorageService
+  - Upload de arquivos
+  - Gerenciamento de documentos
+  - Integração com Firebase Storage
+
+### Utilitários
+- [ ] Criar ValidatorService
+  - Validações customizadas
+  - Máscaras de input
+  - Formatadores
+- [ ] Criar LoggerService
+  - Logging estruturado
+  - Integração com Sentry
+  - Níveis de log
+- [ ] Criar CacheService
+  - Cache local
+  - Cache persistente
+  - Política de expiração
+
+## 👥 Área do Cliente (Atualizado)
+- [ ] Sistema de login
+  - [x] Autenticação básica
+  - [ ] Remember me
+  - [ ] Recuperação de senha
+  - [ ] Login social
+  - [ ] Verificação em duas etapas
+  - [ ] Bloqueio por tentativas
+- [ ] Perfil do usuário
+  - [ ] Dados pessoais
+  - [ ] Preferências
+  - [ ] Histórico de atividades
+  - [ ] Gerenciamento de dispositivos
+- [ ] Dashboard
+  - [ ] Widget de apólices
+  - [ ] Widget de cotações
+  - [ ] Widget de pagamentos
+  - [ ] Widget de notificações
+- [ ] Documentos
+  - [ ] Upload multi-arquivo
+  - [ ] Preview de documentos
+  - [ ] Assinatura digital
+  - [ ] Compartilhamento seguro
+- [ ] Notificações
+  - [ ] Centro de notificações
+  - [ ] Preferências de notificação
+  - [ ] Histórico de notificações
+  - [ ] Ações em lote
 
 ## 💰 Cotações
 - [ ] Formulário dinâmico de cotação
@@ -178,7 +274,6 @@
 - [ ] Redes Sociais
   - Share buttons
   - Feed do Instagram
-  - Facebook Pixel
 - [ ] WhatsApp Business
   - Chat flutuante
   - Quick replies
