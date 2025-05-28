@@ -1,0 +1,39 @@
+<app-base-modal [isOpen]="isOpen" [title]="title" (closeModal)="close()">
+  <div class="list-modal-content">
+    <div class="search-bar">
+      <i class='bx bx-search'></i>
+      <input 
+        type="text" 
+        [placeholder]="'Buscar ' + title.toLowerCase()"
+        [(ngModel)]="searchTerm"
+        (input)="onSearch()"
+      >
+    </div>
+
+    <div class="list-container">
+      <ng-content></ng-content>
+    </div>
+
+    <div class="pagination" *ngIf="totalPages > 1">
+      <button 
+        class="pagination-btn" 
+        [disabled]="currentPage === 1"
+        (click)="changePage(currentPage - 1)"
+      >
+        <i class='bx bx-chevron-left'></i>
+      </button>
+      
+      <span class="page-info">
+        Página {{currentPage}} de {{totalPages}}
+      </span>
+      
+      <button 
+        class="pagination-btn" 
+        [disabled]="currentPage === totalPages"
+        (click)="changePage(currentPage + 1)"
+      >
+        <i class='bx bx-chevron-right'></i>
+      </button>
+    </div>
+  </div>
+</app-base-modal> 

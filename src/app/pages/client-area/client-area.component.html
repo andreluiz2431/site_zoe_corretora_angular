@@ -28,7 +28,7 @@
       <div class="dashboard-section">
         <div class="section-header">
           <h2>Minhas Apólices</h2>
-          <button class="btn btn-outline">Ver Todas</button>
+          <button class="btn btn-outline" (click)="openPoliciesModal()">Ver Todas</button>
         </div>
         
         <div class="table-responsive">
@@ -53,7 +53,7 @@
                   <span class="status-badge active">{{policy.status}}</span>
                 </td>
                 <td>
-                  <button class="action-btn">Detalhes</button>
+                  <button class="action-btn" (click)="openPolicyDetails(policy)">Detalhes</button>
                 </td>
               </tr>
             </tbody>
@@ -65,7 +65,7 @@
       <div class="dashboard-section">
         <div class="section-header">
           <h2>Cotações Recentes</h2>
-          <button class="btn btn-outline">Ver Todas</button>
+          <button class="btn btn-outline" (click)="openQuotesModal()">Ver Todas</button>
         </div>
         
         <div class="table-responsive">
@@ -92,7 +92,7 @@
                   </span>
                 </td>
                 <td>
-                  <button class="action-btn">Detalhes</button>
+                  <button class="action-btn" (click)="openQuoteDetails(quote)">Detalhes</button>
                 </td>
               </tr>
             </tbody>
@@ -104,20 +104,186 @@
       <div class="dashboard-section">
         <div class="section-header">
           <h2>Documentos</h2>
-          <button class="btn btn-outline">Ver Todos</button>
+          <button class="btn btn-outline" (click)="openDocumentsModal()">Ver Todos</button>
         </div>
         
         <div class="documents-grid">
           <div *ngFor="let doc of documents" class="document-card">
-            <div class="document-icon">📄</div>
+            <div class="document-icon">
+              <i class='bx bxs-file-pdf'></i>
+            </div>
             <div class="document-info">
               <h4>{{doc.name}}</h4>
               <p>{{doc.type}} · {{doc.size}} · {{doc.date}}</p>
             </div>
-            <button class="btn btn-outline btn-sm">Download</button>
+            <button class="btn btn-outline btn-sm" (click)="downloadDocument(doc)">
+              <i class='bx bx-download'></i>
+              Download
+            </button>
           </div>
         </div>
       </div>
     </div>
   </div>
+
+  <!-- Modals -->
+  <app-list-modal
+    [isOpen]="showPoliciesModal"
+    title="Minhas Apólices"
+    [totalItems]="policies.length"
+    [itemsPerPage]="10"
+    (closeModal)="onClosePoliciesModal()"
+    (searchChanged)="onSearch($event)"
+    (pageChanged)="onPageChange($event)"
+  >
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Número</th>
+          <th>Tipo</th>
+          <th>Vigência</th>
+          <th>Prêmio (R$)</th>
+          <th>Status</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let policy of policies">
+          <td>{{policy.id}}</td>
+          <td>{{policy.type}}</td>
+          <td>{{policy.startDate}} até {{policy.endDate}}</td>
+          <td>{{policy.premium | number:'1.2-2'}}</td>
+          <td>
+            <span class="status-badge active">{{policy.status}}</span>
+          </td>
+          <td>
+            <button class="action-btn" (click)="openPolicyDetails(policy)">Detalhes</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </app-list-modal>
+
+  <app-list-modal
+    [isOpen]="showQuotesModal"
+    title="Cotações"
+    [totalItems]="quotes.length"
+    [itemsPerPage]="10"
+    (closeModal)="onCloseQuotesModal()"
+    (searchChanged)="onSearch($event)"
+    (pageChanged)="onPageChange($event)"
+  >
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Data</th>
+          <th>Tipo</th>
+          <th>Detalhes</th>
+          <th>Status</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let quote of quotes">
+          <td>{{quote.id}}</td>
+          <td>{{quote.date}}</td>
+          <td>{{quote.type}}</td>
+          <td>{{quote.details}}</td>
+          <td>
+            <span class="status-badge" [ngClass]="{'pending': quote.status === 'Em análise', 'approved': quote.status === 'Aprovado'}">
+              {{quote.status}}
+            </span>
+          </td>
+          <td>
+            <button class="action-btn" (click)="openQuoteDetails(quote)">Detalhes</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </app-list-modal>
+
+  <app-list-modal
+    [isOpen]="showDocumentsModal"
+    title="Documentos"
+    [totalItems]="documents.length"
+    [itemsPerPage]="12"
+    (closeModal)="onCloseDocumentsModal()"
+    (searchChanged)="onSearch($event)"
+    (pageChanged)="onPageChange($event)"
+  >
+    <div class="documents-grid">
+      <div *ngFor="let doc of documents" class="document-card">
+        <div class="document-icon">
+          <i class='bx bxs-file-pdf'></i>
+        </div>
+        <div class="document-info">
+          <h4>{{doc.name}}</h4>
+          <p>{{doc.type}} · {{doc.size}} · {{doc.date}}</p>
+        </div>
+        <button class="btn btn-outline btn-sm" (click)="downloadDocument(doc)">
+          <i class='bx bx-download'></i>
+          Download
+        </button>
+      </div>
+    </div>
+  </app-list-modal>
+
+  <app-detail-modal
+    [isOpen]="showPolicyDetailsModal"
+    title="Detalhes da Apólice"
+    [status]="selectedPolicy?.status"
+    (closeModal)="onClosePolicyDetailsModal()"
+  >
+    <div class="policy-details" *ngIf="selectedPolicy">
+      <div class="detail-group">
+        <h3>Informações Gerais</h3>
+        <div class="detail-row">
+          <span class="detail-label">Número:</span>
+          <span class="detail-value">{{selectedPolicy.id}}</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">Tipo:</span>
+          <span class="detail-value">{{selectedPolicy.type}}</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">Vigência:</span>
+          <span class="detail-value">{{selectedPolicy.startDate}} até {{selectedPolicy.endDate}}</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">Prêmio:</span>
+          <span class="detail-value">R$ {{selectedPolicy.premium | number:'1.2-2'}}</span>
+        </div>
+      </div>
+    </div>
+  </app-detail-modal>
+
+  <app-detail-modal
+    [isOpen]="showQuoteDetailsModal"
+    title="Detalhes da Cotação"
+    [status]="selectedQuote?.status"
+    (closeModal)="onCloseQuoteDetailsModal()"
+  >
+    <div class="quote-details" *ngIf="selectedQuote">
+      <div class="detail-group">
+        <h3>Informações da Cotação</h3>
+        <div class="detail-row">
+          <span class="detail-label">Número:</span>
+          <span class="detail-value">{{selectedQuote.id}}</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">Data:</span>
+          <span class="detail-value">{{selectedQuote.date}}</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">Tipo:</span>
+          <span class="detail-value">{{selectedQuote.type}}</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">Detalhes:</span>
+          <span class="detail-value">{{selectedQuote.details}}</span>
+        </div>
+      </div>
+    </div>
+  </app-detail-modal>
 </div>

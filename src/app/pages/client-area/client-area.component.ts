@@ -1,20 +1,64 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../core/services/auth.service';
 import { User } from '../../core/models/user.model';
+import { BaseModalComponent } from '../../shared/components/modals/base-modal/base-modal.component';
+import { ListModalComponent } from '../../shared/components/modals/list-modal/list-modal.component';
+import { DetailModalComponent } from '../../shared/components/modals/detail-modal/detail-modal.component';
+
+interface Policy {
+  id: string;
+  type: string;
+  startDate: string;
+  endDate: string;
+  premium: number;
+  status: string;
+}
+
+interface Quote {
+  id: string;
+  date: string;
+  type: string;
+  status: string;
+  details: string;
+}
+
+interface Document {
+  id: string;
+  name: string;
+  type: string;
+  size: string;
+  date: string;
+}
 
 @Component({
   selector: 'app-client-area',
   standalone: true,
-  imports: [CommonModule],
+  imports: [
+    CommonModule,
+    BaseModalComponent,
+    ListModalComponent,
+    DetailModalComponent
+  ],
   templateUrl: './client-area.component.html',
   styleUrls: ['./client-area.component.css']
 })
-export class ClientAreaComponent {
+export class ClientAreaComponent implements OnInit {
+  // Modal states
+  showPoliciesModal = false;
+  showQuotesModal = false;
+  showDocumentsModal = false;
+  showPolicyDetailsModal = false;
+  showQuoteDetailsModal = false;
+
+  // Selected items for details
+  selectedPolicy?: Policy;
+  selectedQuote?: Quote;
+
   user: User | null = null;
   
   // Mock data for quotes and policies
-  quotes = [
+  quotes: Quote[] = [
     {
       id: '1001',
       date: '2023-05-15',
@@ -31,7 +75,7 @@ export class ClientAreaComponent {
     }
   ];
   
-  policies = [
+  policies: Policy[] = [
     {
       id: 'A12345',
       type: 'Auto',
@@ -50,7 +94,7 @@ export class ClientAreaComponent {
     }
   ];
   
-  documents = [
+  documents: Document[] = [
     {
       id: 'DOC001',
       name: 'Apólice - Seguro Auto',
@@ -76,5 +120,83 @@ export class ClientAreaComponent {
   
   constructor(private authService: AuthService) {
     this.user = this.authService.getCurrentUser();
+  }
+
+  ngOnInit(): void {
+    this.resetModalStates();
+  }
+
+  // Reset all modal states
+  private resetModalStates(): void {
+    this.showPoliciesModal = false;
+    this.showQuotesModal = false;
+    this.showDocumentsModal = false;
+    this.showPolicyDetailsModal = false;
+    this.showQuoteDetailsModal = false;
+    this.selectedPolicy = undefined;
+    this.selectedQuote = undefined;
+  }
+
+  // Modal open handlers
+  openPoliciesModal(): void {
+    this.showPoliciesModal = true;
+  }
+
+  openQuotesModal(): void {
+    this.showQuotesModal = true;
+  }
+
+  openDocumentsModal(): void {
+    this.showDocumentsModal = true;
+  }
+
+  openPolicyDetails(policy: Policy): void {
+    this.selectedPolicy = policy;
+    this.showPolicyDetailsModal = true;
+  }
+
+  openQuoteDetails(quote: Quote): void {
+    this.selectedQuote = quote;
+    this.showQuoteDetailsModal = true;
+  }
+
+  // Modal close handlers
+  onClosePoliciesModal(): void {
+    this.showPoliciesModal = false;
+  }
+
+  onCloseQuotesModal(): void {
+    this.showQuotesModal = false;
+  }
+
+  onCloseDocumentsModal(): void {
+    this.showDocumentsModal = false;
+  }
+
+  onClosePolicyDetailsModal(): void {
+    this.showPolicyDetailsModal = false;
+    this.selectedPolicy = undefined;
+  }
+
+  onCloseQuoteDetailsModal(): void {
+    this.showQuoteDetailsModal = false;
+    this.selectedQuote = undefined;
+  }
+
+  // Search and pagination handlers
+  onSearch(term: string): void {
+    console.log('Searching for:', term);
+    // Implementar lógica de busca
+  }
+
+  onPageChange(page: number): void {
+    console.log('Page changed to:', page);
+    // Implementar lógica de paginação
+  }
+
+  // Document actions
+  downloadDocument(doc: Document): void {
+    console.log('Downloading document:', doc.name);
+    // Implementar lógica de download
   }
 }

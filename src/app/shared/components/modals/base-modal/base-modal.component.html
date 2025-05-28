@@ -1,0 +1,13 @@
+<div class="modal-overlay" *ngIf="visible" [@overlay]="visible ? 'show' : 'hide'" (click)="onOverlayClick($event)">
+  <div class="modal-container" [@modal]="visible ? 'show' : 'hide'">
+    <div class="modal-header">
+      <h2>{{ title }}</h2>
+      <button class="close-button" (click)="close()">
+        <i class='bx bx-x'></i>
+      </button>
+    </div>
+    <div class="modal-content">
+      <ng-content></ng-content>
+    </div>
+  </div>
+</div> 

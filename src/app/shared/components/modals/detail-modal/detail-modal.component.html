@@ -1,0 +1,22 @@
+<app-base-modal [isOpen]="isOpen" [title]="title" (closeModal)="close()">
+  <div class="detail-modal-content">
+    <div class="detail-header" *ngIf="status">
+      <span class="status-badge" [ngClass]="status.toLowerCase()">
+        {{ status }}
+      </span>
+    </div>
+
+    <div class="detail-body">
+      <ng-content></ng-content>
+    </div>
+
+    <div class="detail-actions" *ngIf="showActions">
+      <button class="btn btn-outline" (click)="close()">
+        Fechar
+      </button>
+      <button class="btn btn-primary" *ngIf="primaryAction" (click)="onPrimaryAction()">
+        {{ primaryActionLabel }}
+      </button>
+    </div>
+  </div>
+</app-base-modal> 
