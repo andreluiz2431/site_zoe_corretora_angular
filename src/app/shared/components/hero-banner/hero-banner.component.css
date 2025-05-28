@@ -88,25 +88,44 @@
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background: rgba(0, 0, 0, 0.5);
-  border: none;
-  color: white;
-  padding: 1rem;
+  background: rgba(255, 255, 255, 0.2);
+  border: 2px solid var(--white);
+  color: var(--white);
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
   cursor: pointer;
-  transition: background-color var(--transition-speed);
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(4px);
   z-index: 2;
+  opacity: 0;
+}
+
+.hero-banner:hover .nav-button {
+  opacity: 0.5;
 }
 
 .nav-button:hover {
-  background: rgba(0, 0, 0, 0.8);
+  background: var(--white);
+  color: var(--blue-primary);
+  transform: translateY(-50%) scale(1.1);
 }
 
 .nav-button.prev {
-  left: 1rem;
+  left: 20px;
 }
 
 .nav-button.next {
-  right: 1rem;
+  right: 20px;
+}
+
+.nav-button span {
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 1;
 }
 
 .slide-indicators {
@@ -159,7 +178,21 @@
   }
 
   .nav-button {
-    padding: 0.5rem;
+    width: 40px;
+    height: 40px;
+    opacity: 1;
+  }
+
+  .nav-button.prev {
+    left: 10px;
+  }
+
+  .nav-button.next {
+    right: 10px;
+  }
+
+  .nav-button span {
+    font-size: 20px;
   }
 }
 
