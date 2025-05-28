@@ -1,8 +1,10 @@
 import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router, NavigationEnd } from '@angular/router';
 import { ThemeService } from '../../../core/services/theme.service';
 import { AuthService } from '../../../core/services/auth.service';
+import { filter } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-header',
@@ -16,50 +18,59 @@ export class HeaderComponent implements OnInit, OnDestroy {
   isDarkTheme = false;
   isLoggedIn = false;
   isRotating = false;
-  private scrollListener: any;
+  isTransparent = false;
+  hasBanner = false;
+
+  // Rotas que contêm banner
+  private routesWithBanner = ['/', '/sobre', '/colaboradores', '/consorcios'];
+  private subscriptions: Subscription[] = [];
 
   constructor(
     private themeService: ThemeService,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) {
-    this.themeService.currentTheme$.subscribe(theme => {
-      this.isDarkTheme = theme === 'dark';
-    });
-    
-    this.authService.currentUser$.subscribe(user => {
-      this.isLoggedIn = !!user;
-    });
+    this.subscriptions.push(
+      this.themeService.currentTheme$.subscribe(theme => {
+        this.isDarkTheme = theme === 'dark';
+      }),
+      
+      this.authService.currentUser$.subscribe(user => {
+        this.isLoggedIn = !!user;
+      }),
+
+      this.router.events.pipe(
+        filter(event => event instanceof NavigationEnd)
+      ).subscribe(() => {
+        this.checkIfPageHasBanner();
+        this.checkHeaderTransparency();
+      })
+    );
   }
 
   ngOnInit() {
-    // Fecha o menu ao rolar a página
-    this.scrollListener = this.onWindowScroll.bind(this);
-    window.addEventListener('scroll', this.scrollListener);
-
-    // Fecha o menu ao clicar fora
-    document.addEventListener('click', (event: MouseEvent) => {
-      const target = event.target as HTMLElement;
-      if (!target.closest('.site-header')) {
-        this.closeMenu();
-      }
-    });
+    this.checkIfPageHasBanner();
+    this.checkHeaderTransparency();
   }
 
   ngOnDestroy() {
-    window.removeEventListener('scroll', this.scrollListener);
+    this.subscriptions.forEach(sub => sub.unsubscribe());
   }
 
-  @HostListener('window:resize')
-  onResize() {
-    if (window.innerWidth > 768) {
-      this.closeMenu();
-    }
+  private checkIfPageHasBanner() {
+    this.hasBanner = this.routesWithBanner.includes(this.router.url);
   }
 
-  private onWindowScroll() {
-    if (window.scrollY > 50) {
-      this.closeMenu();
+  @HostListener('window:scroll')
+  checkHeaderTransparency() {
+    if (!this.hasBanner) {
+      this.isTransparent = false;
+      return;
     }
+
+    const bannerHeight = 600; // Altura do banner em pixels
+    const scrollPosition = window.scrollY;
+    this.isTransparent = scrollPosition < bannerHeight;
   }
 
   toggleMenu(): void {
