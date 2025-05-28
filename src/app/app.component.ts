@@ -4,11 +4,12 @@ import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './shared/components/header/header.component';
 import { FooterComponent } from './shared/components/footer/footer.component';
 import { ThemeService } from './core/services/theme.service';
+import { BottomNavComponent } from './shared/components/bottom-nav/bottom-nav.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, HeaderComponent, FooterComponent],
+  imports: [CommonModule, RouterOutlet, HeaderComponent, FooterComponent, BottomNavComponent],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })

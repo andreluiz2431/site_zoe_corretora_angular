@@ -1,8 +1,8 @@
 import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Router, NavigationEnd } from '@angular/router';
-import { ThemeService } from '../../../core/services/theme.service';
 import { AuthService } from '../../../core/services/auth.service';
+import { ThemeService } from '../../../core/services/theme.service';
 import { filter } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 
@@ -26,17 +26,17 @@ export class HeaderComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];
 
   constructor(
-    private themeService: ThemeService,
     private authService: AuthService,
+    private themeService: ThemeService,
     private router: Router
   ) {
     this.subscriptions.push(
-      this.themeService.currentTheme$.subscribe(theme => {
-        this.isDarkTheme = theme === 'dark';
-      }),
-      
       this.authService.currentUser$.subscribe(user => {
         this.isLoggedIn = !!user;
+      }),
+
+      this.themeService.currentTheme$.subscribe(theme => {
+        this.isDarkTheme = theme === 'dark';
       }),
 
       this.router.events.pipe(

@@ -91,6 +91,6 @@
   }
   
   .site-footer {
-    padding: calc(var(--spacing-base) * 3) 0;
+    padding: calc(var(--spacing-base) * 3) 0 calc(var(--spacing-base) * 8);
   }
 }

@@ -74,9 +74,7 @@
           <button class="theme-btn" 
                   (click)="toggleTheme()" 
                   [attr.aria-label]="isDarkTheme ? 'Ativar modo claro' : 'Ativar modo escuro'">
-            <span class="theme-icon" [class.rotate]="isRotating">
-              {{isDarkTheme ? '☀️' : '🌙'}}
-            </span>
+            <i class="material-icons">{{ isDarkTheme ? 'light_mode' : 'dark_mode' }}</i>
           </button>
         </li>
       </ul>

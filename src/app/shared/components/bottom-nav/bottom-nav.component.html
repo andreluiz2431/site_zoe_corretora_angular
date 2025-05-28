@@ -1,0 +1,29 @@
+<button class="theme-toggle-btn" (click)="toggleTheme()" [class.rotate]="isRotating">
+  <i class="material-icons">{{ isDarkTheme ? 'light_mode' : 'dark_mode' }}</i>
+</button>
+<nav class="bottom-nav">
+  <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+    <i class="material-icons">home</i>
+    <span>Início</span>
+  </a>
+  <a routerLink="/sobre" routerLinkActive="active">
+    <i class="material-icons">info</i>
+    <span>Sobre</span>
+  </a>
+  <a routerLink="/cotacao" routerLinkActive="active">
+    <i class="material-icons">request_quote</i>
+    <span>Cotação</span>
+  </a>
+  <a routerLink="/consorcios" routerLinkActive="active">
+    <i class="material-icons">account_balance</i>
+    <span>Consórcios</span>
+  </a>
+  <a *ngIf="!isLoggedIn" routerLink="/login" routerLinkActive="active">
+    <i class="material-icons">login</i>
+    <span>Login</span>
+  </a>
+  <a *ngIf="isLoggedIn" routerLink="/cliente" routerLinkActive="active">
+    <i class="material-icons">person</i>
+    <span>Perfil</span>
+  </a>
+</nav> 

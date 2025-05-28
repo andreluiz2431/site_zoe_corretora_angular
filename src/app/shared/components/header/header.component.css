@@ -210,6 +210,10 @@
 }
 
 @media (max-width: 768px) {
+  .site-header {
+    display: none;
+  }
+
   .menu-toggle {
     display: block;
   }

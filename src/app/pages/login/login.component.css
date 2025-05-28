@@ -83,4 +83,8 @@
     align-items: flex-start;
     gap: var(--spacing-base);
   }
+
+  .login-page {
+    margin-top: 20px;
+  }
 }
