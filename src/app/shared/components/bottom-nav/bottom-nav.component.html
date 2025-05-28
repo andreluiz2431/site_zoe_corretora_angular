@@ -2,37 +2,37 @@
   <i class="material-icons">{{ isDarkTheme ? 'light_mode' : 'dark_mode' }}</i>
 </button>
 <nav class="bottom-nav">
-  <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+  <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="onNavigationClick()">
     <i class="material-icons">home</i>
     <span>Início</span>
   </a>
-  <a routerLink="/sobre" routerLinkActive="active">
+  <a routerLink="/sobre" routerLinkActive="active" (click)="onNavigationClick()">
     <i class="material-icons">info</i>
     <span>Sobre</span>
   </a>
-  <a routerLink="/cotacao" routerLinkActive="active">
+  <a routerLink="/cotacao" routerLinkActive="active" (click)="onNavigationClick()">
     <i class="material-icons">request_quote</i>
     <span>Cotação</span>
   </a>
-  <a routerLink="/consorcios" routerLinkActive="active">
+  <a routerLink="/consorcios" routerLinkActive="active" (click)="onNavigationClick()">
     <i class="material-icons">account_balance</i>
     <span>Consórcios</span>
   </a>
-  <a *ngIf="!isLoggedIn" routerLink="/login" routerLinkActive="active">
+  <a *ngIf="!isLoggedIn" routerLink="/login" routerLinkActive="active" (click)="onNavigationClick()">
     <i class="material-icons">login</i>
     <span>Login</span>
   </a>
   <div *ngIf="isLoggedIn" class="profile-menu" [class.open]="isProfileMenuOpen">
-    <button class="profile-btn" (click)="toggleProfileMenu()">
+    <button class="profile-btn" (click)="toggleProfileMenu($event)">
       <i class="material-icons">person</i>
       <span>Perfil</span>
     </button>
-    <div class="profile-dropdown">
+    <div class="profile-dropdown" (click)="$event.stopPropagation()">
       <a routerLink="/cliente" routerLinkActive="active" (click)="closeProfileMenu()">
         <i class="material-icons">person</i>
         <span>Área do Cliente</span>
       </a>
-      <a (click)="logout(); closeProfileMenu()" class="logout-btn">
+      <a (click)="logout()" class="logout-btn">
         <i class="material-icons">logout</i>
         <span>Sair</span>
       </a>

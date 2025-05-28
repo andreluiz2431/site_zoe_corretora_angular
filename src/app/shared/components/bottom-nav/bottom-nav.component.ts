@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { AuthService } from '../../../core/services/auth.service';
@@ -19,7 +19,8 @@ export class BottomNavComponent {
 
   constructor(
     private authService: AuthService,
-    private themeService: ThemeService
+    private themeService: ThemeService,
+    private elementRef: ElementRef
   ) {
     this.authService.currentUser$.subscribe(user => {
       this.isLoggedIn = !!user;
@@ -30,6 +31,14 @@ export class BottomNavComponent {
     });
   }
 
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: MouseEvent) {
+    // Verifica se o clique foi fora do componente
+    if (!this.elementRef.nativeElement.contains(event.target)) {
+      this.closeProfileMenu();
+    }
+  }
+
   toggleTheme(): void {
     this.isRotating = true;
     setTimeout(() => {
@@ -38,7 +47,8 @@ export class BottomNavComponent {
     this.themeService.toggleTheme();
   }
 
-  toggleProfileMenu(): void {
+  toggleProfileMenu(event: Event): void {
+    event.stopPropagation(); // Impede que o clique se propague para o document
     this.isProfileMenuOpen = !this.isProfileMenuOpen;
   }
 
@@ -48,6 +58,10 @@ export class BottomNavComponent {
 
   async logout(): Promise<void> {
     await this.authService.logout();
+    this.closeProfileMenu();
+  }
+
+  onNavigationClick(): void {
     this.closeProfileMenu();
   }
 } 
