@@ -40,20 +40,29 @@
             <input type="checkbox" id="rememberMe" formControlName="rememberMe">
             <label for="rememberMe">Lembrar meus dados</label>
           </div>
-          <a href="#" class="forgot-password">Esqueci minha senha</a>
+          <button type="button" class="btn-link" (click)="forgotPassword()">Esqueci minha senha</button>
         </div>
         
-        <div *ngIf="errorMessage" class="alert-error">
+        <div *ngIf="errorMessage" class="alert" [ngClass]="{'alert-error': !errorMessage.includes('enviado'), 'alert-success': errorMessage.includes('enviado')}">
           {{errorMessage}}
         </div>
         
         <button type="submit" class="btn btn-primary btn-block" [disabled]="loginForm.invalid || loading">
           <span *ngIf="loading">Entrando...</span>
-          <span *ngIf="!loading">Entrar</span>
+          <span *ngIf="!loading">Entrar com E-mail</span>
+        </button>
+
+        <div class="divider">
+          <span>ou</span>
+        </div>
+
+        <button type="button" class="btn btn-google btn-block" (click)="loginWithGoogle()" [disabled]="loading">
+          <img src="assets/google-icon.svg" alt="Google" class="google-icon">
+          Entrar com Google
         </button>
         
         <div class="register-link">
-          <p>Ainda não tem uma conta? <a href="#">Cadastre-se</a></p>
+          <p>Ainda não tem uma conta? <a routerLink="/registro">Cadastre-se</a></p>
         </div>
       </form>
       

@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../core/services/auth.service';
 import { User } from '../../core/models/user.model';
 import { BaseModalComponent } from '../../shared/components/modals/base-modal/base-modal.component';
 import { ListModalComponent } from '../../shared/components/modals/list-modal/list-modal.component';
 import { DetailModalComponent } from '../../shared/components/modals/detail-modal/detail-modal.component';
+import { Subscription } from 'rxjs';
 
 interface Policy {
   id: string;
@@ -43,7 +44,7 @@ interface Document {
   templateUrl: './client-area.component.html',
   styleUrls: ['./client-area.component.css']
 })
-export class ClientAreaComponent implements OnInit {
+export class ClientAreaComponent implements OnInit, OnDestroy {
   // Modal states
   showPoliciesModal = false;
   showQuotesModal = false;
@@ -56,6 +57,7 @@ export class ClientAreaComponent implements OnInit {
   selectedQuote?: Quote;
 
   user: User | null = null;
+  private userSubscription?: Subscription;
   
   // Mock data for quotes and policies
   quotes: Quote[] = [
@@ -119,11 +121,19 @@ export class ClientAreaComponent implements OnInit {
   ];
   
   constructor(private authService: AuthService) {
-    this.user = this.authService.getCurrentUser();
+    this.userSubscription = this.authService.currentUser$.subscribe(
+      user => this.user = user
+    );
   }
 
   ngOnInit(): void {
     this.resetModalStates();
+  }
+
+  ngOnDestroy(): void {
+    if (this.userSubscription) {
+      this.userSubscription.unsubscribe();
+    }
   }
 
   // Reset all modal states

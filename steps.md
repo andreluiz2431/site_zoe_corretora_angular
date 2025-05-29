@@ -11,22 +11,22 @@
 ## 🔐 Core (Implementação)
 
 ### Autenticação
-- [ ] Melhorar AuthService
-  - Implementar refresh token
-  - Adicionar persistência de estado
-  - Implementar logout com limpeza de dados
-  - Adicionar interceptor para tokens
-  - Implementar sistema de roles/permissões
+- [x] Melhorar AuthService
+  - [x] Implementar refresh token
+  - [x] Adicionar persistência de estado
+  - [x] Implementar logout com limpeza de dados
+  - [x] Adicionar interceptor para tokens
+  - [x] Implementar sistema de roles/permissões
 
 ### Guards
-- [ ] Melhorar AuthGuard
-  - Adicionar verificação de roles
-  - Implementar redirecionamento inteligente
-  - Adicionar guard para rotas públicas
-- [ ] Criar RoleGuard
-  - Verificação de permissões específicas
-  - Suporte a múltiplas roles
-  - Redirecionamento baseado em perfil
+- [x] Melhorar AuthGuard
+  - [x] Adicionar verificação de roles
+  - [x] Implementar redirecionamento inteligente
+  - [x] Adicionar guard para rotas públicas
+- [x] Criar RoleGuard
+  - [x] Verificação de permissões específicas
+  - [x] Suporte a múltiplas roles
+  - [x] Redirecionamento baseado em perfil
 
 ### Interceptors
 - [ ] Criar AuthInterceptor
@@ -95,13 +95,13 @@
   - Política de expiração
 
 ## 👥 Área do Cliente (Atualizado)
-- [ ] Sistema de login
+- [x] Sistema de login
   - [x] Autenticação básica
-  - [ ] Remember me
-  - [ ] Recuperação de senha
-  - [ ] Login social
-  - [ ] Verificação em duas etapas
-  - [ ] Bloqueio por tentativas
+  - [x] Remember me
+  - [x] Recuperação de senha
+  - [x] Login social
+  - [x] Verificação em duas etapas
+  - [x] Bloqueio por tentativas
 - [ ] Perfil do usuário
   - [ ] Dados pessoais
   - [ ] Preferências

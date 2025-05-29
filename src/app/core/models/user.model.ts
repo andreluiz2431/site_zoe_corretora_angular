@@ -1,7 +1,9 @@
 export interface User {
-  id: string;
-  name: string;
-  email: string;
-  role: string;
-  // Add more properties as needed
+  uid: string;
+  email: string | null;
+  displayName: string | null;
+  photoURL: string | null;
+  emailVerified: boolean;
+  roles: string[];
+  permissions: string[];
 }
