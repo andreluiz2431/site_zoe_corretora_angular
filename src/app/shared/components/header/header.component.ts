@@ -89,8 +89,15 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.themeService.toggleTheme();
   }
 
-  async logout(): Promise<void> {
-    await this.authService.logout();
-    this.closeMenu();
+  logout(): void {
+    this.authService.logout().subscribe({
+      next: () => {
+        this.closeMenu();
+        this.router.navigate(['/login']);
+      },
+      error: (error) => {
+        console.error('Erro ao fazer logout:', error);
+      }
+    });
   }
 }

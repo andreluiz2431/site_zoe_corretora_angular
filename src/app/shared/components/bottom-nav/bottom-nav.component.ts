@@ -56,9 +56,15 @@ export class BottomNavComponent {
     this.isProfileMenuOpen = false;
   }
 
-  async logout(): Promise<void> {
-    await this.authService.logout();
-    this.closeProfileMenu();
+  logout(): void {
+    this.authService.logout().subscribe({
+      next: () => {
+        this.closeProfileMenu();
+      },
+      error: (error) => {
+        console.error('Erro ao fazer logout:', error);
+      }
+    });
   }
 
   onNavigationClick(): void {
