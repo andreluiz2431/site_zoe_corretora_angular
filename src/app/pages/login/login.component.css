@@ -10,6 +10,7 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
+  margin-top: 100px;
 }
 
 .login-container {
@@ -220,7 +221,7 @@
     gap: var(--spacing-base);
   }
 
-  .login-page {
-    margin-top: 20px;
+  .container {
+    margin-top: 0px;
   }
 }
