@@ -2,7 +2,6 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../core/services/auth.service';
 import { User } from '../../core/models/user.model';
-import { BaseModalComponent } from '../../shared/components/modals/base-modal/base-modal.component';
 import { ListModalComponent } from '../../shared/components/modals/list-modal/list-modal.component';
 import { DetailModalComponent } from '../../shared/components/modals/detail-modal/detail-modal.component';
 import { Subscription } from 'rxjs';
@@ -37,7 +36,6 @@ interface Document {
   standalone: true,
   imports: [
     CommonModule,
-    BaseModalComponent,
     ListModalComponent,
     DetailModalComponent
   ],
