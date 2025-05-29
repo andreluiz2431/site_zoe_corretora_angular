@@ -1,4 +1,11 @@
+# Angular
 .angular
+
+# Compiled output
 dist
+
+# packages
 node_modules
+
+# Environment variables
 .env
