@@ -2,6 +2,7 @@
   padding: 2rem;
   max-width: 1200px;
   margin: 0 auto;
+  margin-top: 100px;
 }
 
 .header {
@@ -15,7 +16,7 @@
 
 .header h1 {
   font-size: 1.75rem;
-  color: var(--blue-primary);
+  color: var(--text-color);
   margin: 0;
 }
 
@@ -42,9 +43,11 @@
 .search-box input {
   width: 100%;
   padding: 0.75rem 1rem 0.75rem 2.5rem;
-  border: 1px solid var(--gray-300);
+  border: 1px solid var(--border-color);
   border-radius: var(--border-radius);
   font-size: 0.9rem;
+  background-color: var(--background-color);
+  color: var(--text-color);
 }
 
 .search-box input:focus {
@@ -75,18 +78,18 @@
 }
 
 .btn-secondary {
-  background-color: var(--gray-100);
-  color: var(--gray-700);
+  background-color: var(--background-color-secondary);
+  color: var(--text-color);
 }
 
 .btn-secondary:hover {
-  background-color: var(--gray-200);
+  background-color: var(--background-color-hover);
 }
 
 .users-table-container {
-  background: white;
+  background: var(--background-color);
   border-radius: var(--border-radius);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px var(--shadow-color);
   overflow: auto;
 }
 
@@ -97,18 +100,18 @@
 }
 
 .users-table th {
-  background-color: var(--gray-50);
+  background-color: var(--background-color-secondary);
   padding: 1rem;
   text-align: left;
   font-weight: 500;
-  color: var(--gray-700);
-  border-bottom: 2px solid var(--gray-200);
+  color: var(--text-color);
+  border-bottom: 2px solid var(--border-color);
 }
 
 .users-table td {
   padding: 1rem;
-  border-bottom: 1px solid var(--gray-200);
-  color: var(--gray-800);
+  border-bottom: 1px solid var(--border-color);
+  color: var(--text-color);
 }
 
 .status-dot {
@@ -117,6 +120,7 @@
   height: 10px;
   border-radius: 50%;
   cursor: help;
+  box-shadow: 0 0 0 2px var(--background-color);
 }
 
 .role-badge {
@@ -124,25 +128,26 @@
   border-radius: 1rem;
   font-size: 0.85rem;
   font-weight: 500;
+  box-shadow: 0 1px 3px var(--shadow-color);
 }
 
 .role-badge.super-admin {
-  background-color: #FF4081;
+  background-color: var(--super-admin-color, #FF4081);
   color: white;
 }
 
 .role-badge.admin {
-  background-color: #7C4DFF;
+  background-color: var(--admin-color, #7C4DFF);
   color: white;
 }
 
 .role-badge.corretor {
-  background-color: #00BCD4;
+  background-color: var(--corretor-color, #00BCD4);
   color: white;
 }
 
 .role-badge.cliente {
-  background-color: #4CAF50;
+  background-color: var(--cliente-color, #4CAF50);
   color: white;
 }
 
@@ -157,12 +162,12 @@
   padding: 0.5rem;
   border-radius: var(--border-radius);
   cursor: pointer;
-  color: var(--gray-600);
+  color: var(--text-color-secondary);
   transition: all 0.3s ease;
 }
 
 .btn-icon:hover {
-  background-color: var(--gray-100);
+  background-color: var(--background-color-hover);
   color: var(--blue-primary);
 }
 
@@ -172,7 +177,7 @@
   align-items: center;
   justify-content: center;
   padding: 3rem;
-  color: var(--gray-500);
+  color: var(--text-color-secondary);
 }
 
 .empty-state i, .loading-state i {
@@ -192,6 +197,7 @@
 @media (max-width: 768px) {
   .container {
     padding: 1rem;
+    margin-top: 0;
   }
 
   .header {
@@ -207,4 +213,26 @@
     min-width: auto;
     width: 100%;
   }
+}
+
+/* Ajustes específicos para modo escuro */
+:host-context(.dark-theme) .search-box input {
+  background-color: var(--background-color-secondary);
+}
+
+:host-context(.dark-theme) .users-table-container {
+  box-shadow: 0 2px 8px var(--shadow-color);
+}
+
+:host-context(.dark-theme) .btn-icon {
+  color: var(--text-color-secondary);
+}
+
+:host-context(.dark-theme) .btn-icon:hover {
+  background-color: var(--background-color-hover);
+  color: var(--blue-primary);
+}
+
+:host-context(.dark-theme) .status-dot {
+  box-shadow: 0 0 0 2px var(--background-color-secondary);
 } 
