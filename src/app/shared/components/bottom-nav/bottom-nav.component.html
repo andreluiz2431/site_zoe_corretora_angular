@@ -28,7 +28,7 @@
       <span>Perfil</span>
     </button>
     <div class="profile-dropdown" (click)="$event.stopPropagation()">
-      <a routerLink="/cliente" 
+      <a [routerLink]="getAreaLink().route" 
          routerLinkActive="active" 
          (click)="onNavigationClick()"
          class="nav-link user-role-link"
@@ -37,7 +37,7 @@
           <i class="material-icons role-icon">{{ getUserRoleInfo().icon }}</i>
         </span>
         <i class='bx bx-user'></i>
-        <span>Área do Cliente</span>
+        <span>{{ getAreaLink().text }}</span>
       </a>
       <a (click)="logout()" class="logout-btn">
         <i class="material-icons">logout</i>

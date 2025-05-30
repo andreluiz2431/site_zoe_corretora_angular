@@ -44,6 +44,7 @@ export class AuthService {
         localStorage.setItem('user', JSON.stringify(user));
         localStorage.setItem('token', token);
         this.userSubject.next(user);
+        this.redirectBasedOnRole(user);
       } else {
         this.clearAuthState();
       }
@@ -52,7 +53,22 @@ export class AuthService {
     // Recupera usuário do localStorage na inicialização
     const storedUser = localStorage.getItem('user');
     if (storedUser) {
-      this.userSubject.next(JSON.parse(storedUser));
+      const user = JSON.parse(storedUser);
+      this.userSubject.next(user);
+      this.redirectBasedOnRole(user);
+    }
+  }
+
+  private redirectBasedOnRole(user: User): void {
+    if (!user) return;
+
+    // Verifica se está na página de login
+    if (this.router.url === '/login') {
+      if (user.roles.includes('SUPER_ADMIN') || user.roles.includes('ADMIN')) {
+        this.router.navigate(['/admin']);
+      } else {
+        this.router.navigate(['/cliente']);
+      }
     }
   }
 
@@ -60,6 +76,7 @@ export class AuthService {
     return from(signInWithEmailAndPassword(this.auth, email, password))
       .pipe(
         switchMap(credential => this.parseFirebaseUser(credential.user)),
+        tap(user => this.redirectBasedOnRole(user)),
         catchError(this.handleError)
       );
   }
@@ -69,6 +86,7 @@ export class AuthService {
     return from(signInWithPopup(this.auth, provider))
       .pipe(
         switchMap(credential => this.parseFirebaseUser(credential.user)),
+        tap(user => this.redirectBasedOnRole(user)),
         catchError(this.handleError)
       );
   }

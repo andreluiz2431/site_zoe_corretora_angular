@@ -123,4 +123,17 @@ export class HeaderComponent implements OnInit, OnDestroy {
     }
     return { icon: 'person', color: '#4CAF50', label: 'Cliente' };
   }
+
+  getAreaLink(): { text: string; route: string } {
+    if (!this.currentUser) {
+      return { text: 'Área do Cliente', route: '/cliente' };
+    }
+
+    if (this.roleService.hasRole(this.currentUser, 'SUPER_ADMIN') || 
+        this.roleService.hasRole(this.currentUser, 'ADMIN')) {
+      return { text: 'Área Administrativa', route: '/admin' };
+    }
+
+    return { text: 'Área do Cliente', route: '/cliente' };
+  }
 }

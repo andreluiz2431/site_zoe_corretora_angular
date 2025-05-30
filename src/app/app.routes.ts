@@ -44,6 +44,12 @@ export const routes: Routes = [
     path: 'acesso-negado', 
     loadComponent: () => import('./pages/acesso-negado').then(m => m.AcessoNegadoComponent) 
   },
+  {
+    path: 'admin/usuarios',
+    loadComponent: () => import('./pages/admin/users/user-management.component').then(m => m.UserManagementComponent),
+    canActivate: [AuthGuard],
+    data: { roles: ['SUPER_ADMIN', 'ADMIN'] }
+  },
   { 
     path: '**', 
     loadComponent: () => import('./pages/not-found/not-found.component').then(m => m.NotFoundComponent) 

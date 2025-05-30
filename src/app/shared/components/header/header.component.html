@@ -50,14 +50,14 @@
           </a>
         </li>
         <li *ngIf="isLoggedIn">
-          <a routerLink="/cliente" 
+          <a [routerLink]="getAreaLink().route" 
              routerLinkActive="active"
              (click)="closeMenu()"
              class="user-role-link">
             <span class="role-badge" [style.--role-color]="getUserRoleInfo().color">
               <i class="material-icons role-icon">{{ getUserRoleInfo().icon }}</i>
             </span>
-            Área do Cliente
+            {{ getAreaLink().text }}
           </a>
         </li>
         <li *ngIf="!isLoggedIn">

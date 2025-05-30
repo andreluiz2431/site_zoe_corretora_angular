@@ -1,0 +1,81 @@
+<div class="container">
+  <div class="header">
+    <h1>Gerenciamento de Usuários</h1>
+    <div class="actions">
+      <div class="search-box">
+        <i class="material-icons">search</i>
+        <input 
+          type="text" 
+          [(ngModel)]="searchTerm" 
+          (ngModelChange)="filterUsers()"
+          placeholder="Buscar por nome ou email..."
+        >
+      </div>
+      <button class="btn-primary">
+        <i class="material-icons">person_add</i>
+        Novo Usuário
+      </button>
+      <button class="btn-secondary">
+        <i class="material-icons">upload_file</i>
+        Importar CSV
+      </button>
+    </div>
+  </div>
+
+  <div class="users-table-container">
+    <table class="users-table" *ngIf="!isLoading && filteredUsers.length > 0">
+      <thead>
+        <tr>
+          <th>Status</th>
+          <th>Nome</th>
+          <th>Email</th>
+          <th>Tipo</th>
+          <th>Último Acesso</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of filteredUsers">
+          <td>
+            <span 
+              class="status-dot" 
+              [style.background-color]="getUserStatusColor(user)"
+              [title]="user.lastLogin ? ('Último acesso: ' + (user.lastLogin | date:'dd/MM/yyyy HH:mm')) : 'Nunca acessou'">
+            </span>
+          </td>
+          <td>{{ user.displayName || 'Sem nome' }}</td>
+          <td>{{ user.email }}</td>
+          <td>
+            <span class="role-badge" [class]="getUserRoleLabel(user).toLowerCase().replace(' ', '-')">
+              {{ getUserRoleLabel(user) }}
+            </span>
+          </td>
+          <td>{{ user.lastLogin | date:'dd/MM/yyyy HH:mm' }}</td>
+          <td>
+            <div class="actions-cell" *ngIf="canManageUser(user)">
+              <button class="btn-icon" title="Editar">
+                <i class="material-icons">edit</i>
+              </button>
+              <button class="btn-icon" title="Desativar">
+                <i class="material-icons">block</i>
+              </button>
+              <button class="btn-icon" title="Histórico">
+                <i class="material-icons">history</i>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="empty-state" *ngIf="!isLoading && filteredUsers.length === 0">
+      <i class="material-icons">search_off</i>
+      <p>Nenhum usuário encontrado</p>
+    </div>
+
+    <div class="loading-state" *ngIf="isLoading">
+      <i class="material-icons rotating">sync</i>
+      <p>Carregando usuários...</p>
+    </div>
+  </div>
+</div> 
