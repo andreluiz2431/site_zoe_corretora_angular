@@ -11,12 +11,12 @@
           placeholder="Buscar por nome ou email..."
         >
       </div>
-      <button class="btn-primary">
-        <i class="material-icons">person_add</i>
+      <button mat-raised-button color="primary">
+        <mat-icon>person_add</mat-icon>
         Novo Usuário
       </button>
-      <button class="btn-secondary">
-        <i class="material-icons">upload_file</i>
+      <button mat-stroked-button color="primary">
+        <mat-icon>upload_file</mat-icon>
         Importar CSV
       </button>
     </div>
@@ -40,7 +40,8 @@
             <span 
               class="status-dot" 
               [style.background-color]="getUserStatusColor(user)"
-              [title]="user.lastLogin ? ('Último acesso: ' + (user.lastLogin | date:'dd/MM/yyyy HH:mm')) : 'Nunca acessou'">
+              [matTooltip]="user.lastLogin ? ('Último acesso: ' + (user.lastLogin | date:'dd/MM/yyyy HH:mm')) : 'Nunca acessou'"
+              matTooltipPosition="right">
             </span>
           </td>
           <td>{{ user.displayName || 'Sem nome' }}</td>
@@ -53,14 +54,25 @@
           <td>{{ user.lastLogin | date:'dd/MM/yyyy HH:mm' }}</td>
           <td>
             <div class="actions-cell" *ngIf="canManageUser(user)">
-              <button class="btn-icon" title="Editar">
-                <i class="material-icons">edit</i>
+              <button 
+                mat-icon-button 
+                color="primary"
+                matTooltip="Editar usuário"
+                (click)="onEditUser(user)">
+                <mat-icon>edit</mat-icon>
               </button>
-              <button class="btn-icon" title="Desativar">
-                <i class="material-icons">block</i>
+              <button 
+                mat-icon-button 
+                color="warn"
+                matTooltip="Excluir usuário"
+                (click)="onDeleteUser(user)">
+                <mat-icon>delete</mat-icon>
               </button>
-              <button class="btn-icon" title="Histórico">
-                <i class="material-icons">history</i>
+              <button 
+                mat-icon-button 
+                color="primary"
+                matTooltip="Ver histórico">
+                <mat-icon>history</mat-icon>
               </button>
             </div>
           </td>
@@ -69,12 +81,12 @@
     </table>
 
     <div class="empty-state" *ngIf="!isLoading && filteredUsers.length === 0">
-      <i class="material-icons">search_off</i>
+      <mat-icon class="empty-icon">search_off</mat-icon>
       <p>Nenhum usuário encontrado</p>
     </div>
 
     <div class="loading-state" *ngIf="isLoading">
-      <i class="material-icons rotating">sync</i>
+      <mat-icon class="rotating">sync</mat-icon>
       <p>Carregando usuários...</p>
     </div>
   </div>

@@ -13,10 +13,12 @@ import {
   signInWithPopup,
   User as FirebaseUser,
   getIdToken,
-  onIdTokenChanged
+  onIdTokenChanged,
+  getAuth
 } from '@angular/fire/auth';
 import { User } from '../models/user.model';
 import { getInitialRole } from '../models/role.types';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -139,8 +141,8 @@ export class AuthService {
       photoURL: firebaseUser.photoURL || undefined,
       emailVerified: firebaseUser.emailVerified,
       roles: [initialRole],
-      createdAt: new Date(),
-      lastLogin: new Date()
+      createdAt: firebaseUser.metadata?.creationTime ? new Date(firebaseUser.metadata.creationTime) : new Date(),
+      lastLogin: firebaseUser.metadata?.lastSignInTime ? new Date(firebaseUser.metadata.lastSignInTime) : new Date()
     };
   }
 
@@ -181,7 +183,95 @@ export class AuthService {
     return throwError(() => errorMessage);
   }
 
-  private updateUserState(user: User | null) {
-    this.userSubject.next(user);
+  /**
+   * Verifica se o usuário atual é admin
+   */
+  isAdmin(): boolean {
+    const user = this.userSubject.value;
+    if (!user) return false;
+    return user.roles.includes('ADMIN') || user.roles.includes('SUPER_ADMIN');
+  }
+
+  /**
+   * Lista todos os usuários do Firebase Authentication
+   * Simplificado para desenvolvimento - apenas retorna usuários mockados
+   */
+  listAllUsers(): Observable<User[]> {
+    if (!this.isAdmin()) {
+      return throwError(() => new Error('Usuário não tem permissão para listar usuários.'));
+    }
+
+    // Dados mockados para desenvolvimento
+    const mockUsers: User[] = [
+      {
+        uid: '1',
+        email: 'admin@zoecorretora.com.br',
+        displayName: 'Administrador',
+        roles: ['SUPER_ADMIN'],
+        emailVerified: true,
+        createdAt: new Date(),
+        lastLogin: new Date()
+      },
+      {
+        uid: '2',
+        email: 'corretor@zoecorretora.com.br',
+        displayName: 'Corretor Exemplo',
+        roles: ['CORRETOR'],
+        emailVerified: true,
+        createdAt: new Date(),
+        lastLogin: new Date()
+      },
+      {
+        uid: '3',
+        email: 'cliente@example.com',
+        displayName: 'Cliente Exemplo',
+        roles: ['CLIENTE'],
+        emailVerified: false,
+        createdAt: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000), // 30 dias atrás
+        lastLogin: new Date(Date.now() - 15 * 24 * 60 * 60 * 1000)  // 15 dias atrás
+      }
+    ];
+
+    // Simula um delay de rede
+    return new Observable(subscriber => {
+      setTimeout(() => {
+        subscriber.next(mockUsers);
+        subscriber.complete();
+      }, 1000);
+    });
+  }
+
+  /**
+   * Atualiza os dados de um usuário
+   */
+  updateUserData(uid: string, data: Partial<User>): Observable<void> {
+    if (!this.isAdmin()) {
+      return throwError(() => new Error('Usuário não tem permissão para atualizar usuários.'));
+    }
+
+    // Por enquanto, apenas simula sucesso
+    return new Observable(subscriber => {
+      setTimeout(() => {
+        subscriber.next();
+        subscriber.complete();
+      }, 1000);
+    });
+  }
+
+  /**
+   * Remove um usuário
+   */
+  deleteUserData(uid: string): Observable<void> {
+    if (!this.isAdmin()) {
+      return throwError(() => new Error('Usuário não tem permissão para excluir usuários.'));
+    }
+
+    // Por enquanto, apenas simula sucesso
+    return new Observable(subscriber => {
+      setTimeout(() => {
+        subscriber.next();
+        subscriber.complete();
+      }, 1000);
+    });
   }
 }
