@@ -10,13 +10,22 @@
 
 ## 🔐 Core (Implementação)
 
-### Autenticação
+### Autenticação e Permissões
 - [x] Melhorar AuthService
   - [x] Implementar refresh token
   - [x] Adicionar persistência de estado
   - [x] Implementar logout com limpeza de dados
   - [x] Adicionar interceptor para tokens
   - [x] Implementar sistema de roles/permissões
+- [x] Definir Níveis de Acesso
+  - [x] SUPER_ADMIN (Acesso total ao sistema)
+  - [x] ADMIN (Gerenciamento de clientes e cotações)
+  - [x] CORRETOR (Acesso limitado a cotações e clientes específicos)
+  - [x] CLIENTE (Acesso apenas à área do cliente)
+- [x] Configurar Emails Administrativos
+  - [x] Lista fixa de emails no environment.ts
+  - [x] Atribuição automática de role SUPER_ADMIN
+  - [x] Bloqueio de alteração de role para estes emails
 
 ### Guards
 - [x] Melhorar AuthGuard
@@ -94,7 +103,7 @@
   - Cache persistente
   - Política de expiração
 
-## 👥 Área do Cliente (Atualizado)
+## 👥 Área do Cliente
 - [x] Sistema de login
   - [x] Autenticação básica
   - [x] Remember me
@@ -102,6 +111,11 @@
   - [x] Login social
   - [x] Verificação em duas etapas
   - [x] Bloqueio por tentativas
+- [ ] Registro de Cliente
+  - [ ] Formulário de cadastro básico
+  - [ ] Verificação de email
+  - [ ] Atribuição automática da role CLIENTE
+  - [ ] Termos de uso e política de privacidade
 - [ ] Perfil do usuário
   - [ ] Dados pessoais
   - [ ] Preferências
@@ -156,18 +170,37 @@
   - Rich text content
 
 ## 👨‍💼 Área Administrativa
-- [ ] CRUD de usuários
-  - Níveis de acesso
-  - Logs de atividade
-  - Reset de senha
+- [ ] Gestão de Usuários
+  - [ ] CRUD de clientes
+    - [ ] Cadastro manual de clientes
+    - [ ] Importação em lote (CSV)
+    - [ ] Ativação/Desativação de contas
+    - [ ] Histórico de modificações
+  - [ ] CRUD de administradores/corretores
+    - [ ] Cadastro restrito (apenas SUPER_ADMIN)
+    - [ ] Gerenciamento de permissões
+    - [ ] Log de atividades administrativas
+  - [ ] Gerenciamento de Roles
+    - [ ] Atribuição/remoção de roles
+    - [ ] Permissões por role
+    - [ ] Auditoria de alterações
+- [ ] Dashboard Administrativo
+  - [ ] Visão geral de usuários
+    - [ ] Total por tipo de conta
+    - [ ] Últimos acessos
+    - [ ] Contas pendentes de verificação
+  - [ ] Relatórios de acesso
+    - [ ] Login social vs tradicional
+    - [ ] Tentativas de login falhas
+    - [ ] Recuperações de senha
 - [ ] Gestão de conteúdo
-  - Editor WYSIWYG
-  - Upload de mídia
-  - Versionamento
+  - [ ] Editor WYSIWYG
+  - [ ] Upload de mídia
+  - [ ] Versionamento
 - [ ] Relatórios
-  - Exportação CSV/PDF
-  - Gráficos interativos
-  - Filtros personalizados
+  - [ ] Exportação CSV/PDF
+  - [ ] Gráficos interativos
+  - [ ] Filtros personalizados
 
 ## 🎨 Design System
 - [ ] Paleta de cores
@@ -251,6 +284,14 @@
   - SSL/TLS
   - CSRF protection
   - Rate limiting
+- [ ] Proteção de Rotas
+  - [ ] Middleware de verificação de roles
+  - [ ] Validação de tokens JWT
+  - [ ] Proteção contra força bruta
+- [ ] Auditoria
+  - [ ] Log de ações administrativas
+  - [ ] Histórico de alterações de permissões
+  - [ ] Registro de tentativas de acesso não autorizado
 - [ ] Analytics
   - Google Analytics 4
   - Eventos personalizados

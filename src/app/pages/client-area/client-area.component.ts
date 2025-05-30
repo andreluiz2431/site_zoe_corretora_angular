@@ -119,7 +119,7 @@ export class ClientAreaComponent implements OnInit, OnDestroy {
   ];
   
   constructor(private authService: AuthService) {
-    this.userSubscription = this.authService.currentUser$.subscribe(
+    this.userSubscription = this.authService.user$.subscribe(
       user => this.user = user
     );
   }

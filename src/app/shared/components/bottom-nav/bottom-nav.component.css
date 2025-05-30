@@ -161,4 +161,33 @@
 .profile-dropdown a:focus-visible {
   box-shadow: 0 0 0 2px var(--gold-primary);
   border-radius: 8px;
+}
+
+.user-role-link {
+  position: relative;
+}
+
+.role-badge {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: var(--role-color);
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.role-icon {
+  font-size: 12px;
+  color: white;
+}
+
+.user-role-link:hover .role-badge {
+  transform: scale(1.1);
 } 

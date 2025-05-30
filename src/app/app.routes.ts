@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { authGuard } from './core/guards/auth.guard';
+import { AuthGuard } from './core/guards/auth.guard';
 
 export const routes: Routes = [
   { 
@@ -16,7 +16,9 @@ export const routes: Routes = [
   },
   { 
     path: 'cotacao', 
-    loadComponent: () => import('./pages/quote/quote.component').then(m => m.QuoteComponent) 
+    loadComponent: () => import('./pages/quote/quote.component').then(m => m.QuoteComponent),
+    canActivate: [AuthGuard],
+    data: { roles: ['CLIENTE', 'CORRETOR', 'ADMIN', 'SUPER_ADMIN'] }
   },
   { 
     path: 'consorcios', 
@@ -25,11 +27,22 @@ export const routes: Routes = [
   { 
     path: 'cliente', 
     loadComponent: () => import('./pages/client-area/client-area.component').then(m => m.ClientAreaComponent),
-    canActivate: [authGuard]
+    canActivate: [AuthGuard],
+    data: { roles: ['CLIENTE', 'ADMIN', 'SUPER_ADMIN'] }
+  },
+  { 
+    path: 'admin', 
+    loadComponent: () => import('./pages/admin/admin.component').then(m => m.AdminComponent),
+    canActivate: [AuthGuard],
+    data: { roles: ['ADMIN', 'SUPER_ADMIN'] }
   },
   { 
     path: 'login', 
     loadComponent: () => import('./pages/login/login.component').then(m => m.LoginComponent) 
+  },
+  { 
+    path: 'acesso-negado', 
+    loadComponent: () => import('./pages/acesso-negado').then(m => m.AcessoNegadoComponent) 
   },
   { 
     path: '**', 

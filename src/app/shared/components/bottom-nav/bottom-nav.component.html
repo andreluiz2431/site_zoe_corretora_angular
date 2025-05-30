@@ -28,8 +28,15 @@
       <span>Perfil</span>
     </button>
     <div class="profile-dropdown" (click)="$event.stopPropagation()">
-      <a routerLink="/cliente" routerLinkActive="active" (click)="closeProfileMenu()">
-        <i class="material-icons">person</i>
+      <a routerLink="/cliente" 
+         routerLinkActive="active" 
+         (click)="onNavigationClick()"
+         class="nav-link user-role-link"
+         *ngIf="isLoggedIn">
+        <span class="role-badge" [style.--role-color]="getUserRoleInfo().color">
+          <i class="material-icons role-icon">{{ getUserRoleInfo().icon }}</i>
+        </span>
+        <i class='bx bx-user'></i>
         <span>Área do Cliente</span>
       </a>
       <a (click)="logout()" class="logout-btn">

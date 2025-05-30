@@ -52,7 +52,11 @@
         <li *ngIf="isLoggedIn">
           <a routerLink="/cliente" 
              routerLinkActive="active"
-             (click)="closeMenu()">
+             (click)="closeMenu()"
+             class="user-role-link">
+            <span class="role-badge" [style.--role-color]="getUserRoleInfo().color">
+              <i class="material-icons role-icon">{{ getUserRoleInfo().icon }}</i>
+            </span>
             Área do Cliente
           </a>
         </li>

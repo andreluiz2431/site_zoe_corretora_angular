@@ -15,24 +15,18 @@ import {
   getIdToken,
   onIdTokenChanged
 } from '@angular/fire/auth';
-
-export interface User {
-  uid: string;
-  email: string | null;
-  displayName: string | null;
-  photoURL: string | null;
-  emailVerified: boolean;
-  roles: string[];
-  permissions: string[];
-}
+import { User } from '../models/user.model';
+import { getInitialRole } from '../models/role.types';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private currentUserSubject = new BehaviorSubject<User | null>(null);
-  public currentUser$ = this.currentUserSubject.asObservable();
-  public isAuthenticated$ = this.currentUser$.pipe(map(user => !!user));
+  private userSubject = new BehaviorSubject<User | null>(null);
+  user$: Observable<User | null> = this.userSubject.asObservable();
+  isAuthenticated$: Observable<boolean> = this.user$.pipe(
+    map(user => !!user)
+  );
 
   constructor(
     private auth: Auth,
@@ -46,28 +40,26 @@ export class AuthService {
     onIdTokenChanged(this.auth, async (firebaseUser) => {
       if (firebaseUser) {
         const token = await getIdToken(firebaseUser);
-        const user = this.parseFirebaseUser(firebaseUser);
+        const user = await this.parseFirebaseUser(firebaseUser);
         localStorage.setItem('user', JSON.stringify(user));
         localStorage.setItem('token', token);
-        this.currentUserSubject.next(user);
+        this.userSubject.next(user);
       } else {
-        localStorage.removeItem('user');
-        localStorage.removeItem('token');
-        this.currentUserSubject.next(null);
+        this.clearAuthState();
       }
     });
 
     // Recupera usuário do localStorage na inicialização
     const storedUser = localStorage.getItem('user');
     if (storedUser) {
-      this.currentUserSubject.next(JSON.parse(storedUser));
+      this.userSubject.next(JSON.parse(storedUser));
     }
   }
 
   login(email: string, password: string): Observable<User> {
     return from(signInWithEmailAndPassword(this.auth, email, password))
       .pipe(
-        map(credential => this.parseFirebaseUser(credential.user)),
+        switchMap(credential => this.parseFirebaseUser(credential.user)),
         catchError(this.handleError)
       );
   }
@@ -76,7 +68,7 @@ export class AuthService {
     const provider = new GoogleAuthProvider();
     return from(signInWithPopup(this.auth, provider))
       .pipe(
-        map(credential => this.parseFirebaseUser(credential.user)),
+        switchMap(credential => this.parseFirebaseUser(credential.user)),
         catchError(this.handleError)
       );
   }
@@ -87,7 +79,7 @@ export class AuthService {
         switchMap(credential => {
           // Envia email de verificação
           return from(sendEmailVerification(credential.user)).pipe(
-            map(() => this.parseFirebaseUser(credential.user))
+            switchMap(() => this.parseFirebaseUser(credential.user))
           );
         }),
         catchError(this.handleError)
@@ -111,33 +103,33 @@ export class AuthService {
   }
 
   hasRole(role: string): boolean {
-    const user = this.currentUserSubject.value;
-    return user?.roles.includes(role) ?? false;
+    const user = this.userSubject.value;
+    return user?.roles?.includes(role) ?? false;
   }
 
-  hasPermission(permission: string): boolean {
-    const user = this.currentUserSubject.value;
-    return user?.permissions.includes(permission) ?? false;
-  }
+  private async parseFirebaseUser(firebaseUser: FirebaseUser): Promise<User> {
+    if (!firebaseUser.email) {
+      throw new Error('Email é obrigatório');
+    }
 
-  private parseFirebaseUser(firebaseUser: FirebaseUser): User {
-    // Aqui você pode adicionar lógica para buscar roles e permissions do Firestore
-    // Por enquanto, vamos definir um role padrão
+    const initialRole = getInitialRole(firebaseUser.email);
+
     return {
       uid: firebaseUser.uid,
       email: firebaseUser.email,
-      displayName: firebaseUser.displayName,
-      photoURL: firebaseUser.photoURL,
+      displayName: firebaseUser.displayName || undefined,
+      photoURL: firebaseUser.photoURL || undefined,
       emailVerified: firebaseUser.emailVerified,
-      roles: ['user'],
-      permissions: ['read']
+      roles: [initialRole],
+      createdAt: new Date(),
+      lastLogin: new Date()
     };
   }
 
   private clearAuthState(): void {
     localStorage.removeItem('user');
     localStorage.removeItem('token');
-    this.currentUserSubject.next(null);
+    this.userSubject.next(null);
   }
 
   private handleError(error: any) {
@@ -169,5 +161,9 @@ export class AuthService {
     }
     
     return throwError(() => errorMessage);
+  }
+
+  private updateUserState(user: User | null) {
+    this.userSubject.next(user);
   }
 }

@@ -1,9 +1,10 @@
 export interface User {
   uid: string;
-  email: string | null;
-  displayName: string | null;
-  photoURL: string | null;
-  emailVerified: boolean;
+  email: string;
+  displayName?: string;
+  photoURL?: string;
   roles: string[];
-  permissions: string[];
+  emailVerified: boolean;
+  createdAt: Date;
+  lastLogin: Date;
 }
