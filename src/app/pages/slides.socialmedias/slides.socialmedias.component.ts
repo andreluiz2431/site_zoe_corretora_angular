@@ -34,7 +34,7 @@ export class SlidesSocialmediasComponent {
   }
 
   startAutoSlide() {
-    this.autoSlideInterval = setInterval(() => this.nextSlide(), 5000);
+    this.autoSlideInterval = setInterval(() => this.nextSlide(), 8000);
   }
 
   resetAutoSlide() {
