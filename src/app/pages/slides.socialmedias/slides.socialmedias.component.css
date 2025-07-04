@@ -51,8 +51,8 @@ body {
 .qr-code-main {
   width: auto;
   height: auto;
-  max-width: 160px;
-  max-height: 160px;
+  max-width: 110px;
+  max-height: 110px;
   object-fit: contain;
 }
 .qr-code-secondary {
@@ -189,4 +189,42 @@ body {
 }
 .toggle-btn.toggle-off .ml-2 {
   color: #F8D7DA;
+}
+.icon-link svg {
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+  border-radius: 12px;
+}
+.icon-link:hover svg {
+  transform: scale(1.12) rotate(-3deg);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+}
+.icon-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  background: white;
+  padding: 0.25rem;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+  transition: background 0.2s;
+}
+.icon-link:active {
+  background: #f3f3f3;
+}
+.icon-link i {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+/* Ajuste para centralizar e dar espaçamento aos ícones */
+.slide .mt-4.w-full.flex.justify-center.gap-4 {
+  gap: 1.5rem;
+}
+.social-links {
+  justify-content: center !important;
+  display: flex !important;
+  width: 100%;
+  margin: 0 auto;
 }
