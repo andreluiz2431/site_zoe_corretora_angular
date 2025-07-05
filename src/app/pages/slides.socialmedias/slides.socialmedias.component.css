@@ -1,230 +1,318 @@
 /* Estilos principais baseados no examplePageQRcodes.html, adaptados para Angular */
 body {
-  font-family: 'Poppins', sans-serif;
-  background-color: #FDFBF8;
-  color: #4A4A4A;
+    font-family: 'Poppins', sans-serif;
+    background-color: #FDFBF8;
+    color: #4A4A4A;
 }
+
 .bg-burgundy-dark {
-  background-color: #8B0000;
+    background-color: #8B0000;
 }
+
 .text-burgundy-dark {
-  color: #8B0000;
+    color: #8B0000;
 }
+
 .slide-container {
-  display: flex;
-  transition: transform 0.7s ease-in-out;
-  width: 100%;
+    display: flex;
+    transition: transform 0.7s ease-in-out;
+    width: 100%;
 }
+
 .slide {
-  flex: 0 0 100%;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 0.25rem;
-  box-sizing: border-box;
+    flex: 0 0 100%;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0.25rem;
+    box-sizing: border-box;
 }
+
 .card {
-  background-color: #FFFFFF;
-  border: 1px solid #EAEAEA;
-  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 0.75rem;
-  padding-left: 5rem;
-  padding-right: 5rem;
-  max-width: 95%;
-  max-height: 95%;
-  overflow: hidden;
-  align-items: stretch;
+    background: #f8fafc !important;
+    /* branco gélido */
+    border: 1px solid #EAEAEA;
+    border-radius: 24px;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.05) !important;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 1.75rem;
+    padding-left: 5rem;
+    padding-right: 5rem;
+    max-width: 50%;
+    max-height: 95%;
+    overflow: hidden;
+    align-items: stretch;
 }
+
+.slide>.card {
+    background: #f8fafc !important;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.05) !important;
+    opacity: 1 !important;
+    z-index: 2;
+}
+
 .card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 20px 30px -10px rgba(0, 0, 0, 0.1);
+    background: #fff !important;
+    transform: translateY(-5px);
+    box-shadow: 0 20px 30px -10px rgba(0, 0, 0, 0.1);
 }
+
 .qr-code-main {
-  width: auto;
-  height: auto;
-  max-width: 110px;
-  max-height: 110px;
-  object-fit: contain;
+    width: auto;
+    height: auto;
+    max-width: 110px;
+    max-height: 110px;
+    object-fit: contain;
 }
+
 .qr-code-secondary {
-  width: auto;
-  height: auto;
-  max-width: 60px;
-  max-height: 60px;
-  object-fit: contain;
+    width: auto;
+    height: auto;
+    max-width: 60px;
+    max-height: 60px;
+    object-fit: contain;
 }
+
 .qr-code-main-lg {
-  width: 300px;
-  height: 300px;
-  max-width: 90vw;
-  max-height: 60vh;
-  object-fit: contain;
-  margin: 0 auto;
-  display: block;
+    width: 260px;
+    height: 260px;
+    max-width: 90vw;
+    max-height: 60vh;
+    object-fit: contain;
+    margin: 0 auto;
+    display: block;
 }
+
 /* Centraliza o container do QR code do primeiro slide */
 .slide:first-child .qr-code-main-lg {
-  margin-left: auto;
-  margin-right: auto;
-  display: block;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
 }
+
 @media (max-width: 900px) {
-  .qr-code-main-lg {
-    width: 220px;
-    height: 220px;
-  }
+    .qr-code-main-lg {
+        width: 220px;
+        height: 220px;
+    }
 }
+
 @media (max-width: 600px) {
-  .qr-code-main-lg {
-    width: 140px;
-    height: 140px;
-  }
+    .qr-code-main-lg {
+        width: 140px;
+        height: 140px;
+    }
 }
+
 .animated-background {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(45deg, #FDFBF8, #F5EFE9, #EFE7E0, #F5EFE9, #FDFBF8);
-  background-size: 400% 400%;
-  animation: gradientAnimation 10s ease infinite;
-  z-index: -1;
+    display: none !important;
 }
-@keyframes gradientAnimation {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+
+.bg-video {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    z-index: -2;
+    pointer-events: none;
 }
+
+.video-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(80, 0, 0, 0.65); /* vermelho escuro com transparência */
+    z-index: -1;
+    pointer-events: none;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+}
+
 .nav-button {
-  background-color: rgba(139, 0, 0, 0.8);
-  color: white;
-  padding: 0.75rem 1.25rem;
-  border-radius: 9999px;
-  font-size: 1.5rem;
-  line-height: 1;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-  cursor: pointer;
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 10;
+    background-color: rgba(139, 0, 0, 0.8);
+    color: white;
+    padding: 0.75rem 1.25rem;
+    border-radius: 9999px;
+    font-size: 1.5rem;
+    line-height: 1;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
 }
+
 .nav-button:hover {
-  background-color: #B22222;
-  transform: translateY(-50%) scale(1.05);
+    background-color: #B22222;
+    transform: translateY(-50%) scale(1.05);
 }
+
 .nav-button.left {
-  left: 1rem;
+    left: 1rem;
 }
+
 .nav-button.right {
-  right: 1rem;
+    right: 1rem;
 }
+
 .dot {
-  width: 12px;
-  height: 12px;
-  background-color: rgba(139, 0, 0, 0.4);
-  border-radius: 50%;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  display: inline-block;
-  margin: 0 2px;
+    width: 12px;
+    height: 12px;
+    background-color: rgba(139, 0, 0, 0.4);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: inline-block;
+    margin: 0 2px;
 }
+
 .dot.active {
-  background-color: #8B0000;
+    background-color: #8B0000;
 }
+
 .toggle-btn {
-  width: 54px;
-  height: 28px;
-  background: #C41E3A; /* vermelho escuro */
-  border-radius: 9999px;
-  border: 2px solid #C41E3A;
-  display: flex;
-  align-items: center;
-  position: relative;
-  cursor: pointer;
-  transition: background 0.3s, border 0.3s;
-  outline: none;
-  padding: 0 6px;
+    width: 54px;
+    height: 28px;
+    background: #C41E3A;
+    /* vermelho escuro */
+    border-radius: 9999px;
+    border: 2px solid #C41E3A;
+    display: flex;
+    align-items: center;
+    position: relative;
+    cursor: pointer;
+    transition: background 0.3s, border 0.3s;
+    outline: none;
+    padding: 0 6px;
 }
+
 .toggle-btn.toggle-on {
-  background: #F8D7DA; /* vermelho claro */
-  border-color: #F8D7DA;
+    background: #F8D7DA;
+    /* vermelho claro */
+    border-color: #F8D7DA;
 }
+
 .toggle-btn .toggle-slider {
-  width: 20px;
-  height: 20px;
-  background: #fff;
-  border-radius: 50%;
-  position: absolute;
-  left: 6px;
-  top: 2px;
-  transition: left 0.3s, background 0.3s;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.12);
+    width: 20px;
+    height: 20px;
+    background: #fff;
+    border-radius: 50%;
+    position: absolute;
+    left: 6px;
+    top: 2px;
+    transition: left 0.3s, background 0.3s;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
 }
+
 .toggle-btn.toggle-on .toggle-slider {
-  left: 28px;
-  background: #C41E3A;
+    left: 28px;
+    background: #C41E3A;
 }
+
 .toggle-btn.toggle-off .toggle-slider {
-  left: 6px;
-  background: #fff;
+    left: 6px;
+    background: #fff;
 }
+
 .toggle-btn .ml-2 {
-  margin-left: 30px;
-  font-weight: 600;
-  transition: color 0.3s;
+    margin-left: 30px;
+    font-weight: 600;
+    transition: color 0.3s;
 }
+
 .toggle-btn.toggle-on .ml-2 {
-  color: #8B0000;
+    color: #8B0000;
 }
+
 .toggle-btn.toggle-off .ml-2 {
-  color: #F8D7DA;
+    color: #F8D7DA;
 }
+
 .icon-link svg {
-  transition: transform 0.2s, box-shadow 0.2s;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.10);
-  border-radius: 12px;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.10);
+    border-radius: 12px;
 }
+
 .icon-link:hover svg {
-  transform: scale(1.12) rotate(-3deg);
-  box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+    transform: scale(1.12) rotate(-3deg);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18);
 }
+
 .icon-link {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 12px;
-  background: white;
-  padding: 0.25rem;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
-  transition: background 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    background: white;
+    padding: 0.25rem;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+    transition: background 0.2s;
 }
+
 .icon-link:active {
-  background: #f3f3f3;
+    background: #f3f3f3;
 }
+
 .icon-link i {
-  margin: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
+
 /* Ajuste para centralizar e dar espaçamento aos ícones */
 .slide .mt-4.w-full.flex.justify-center.gap-4 {
-  gap: 1.5rem;
+    gap: 1.5rem;
 }
+
 .social-links {
-  justify-content: center !important;
-  display: flex !important;
-  width: 100%;
-  margin: 0 auto;
+    justify-content: center !important;
+    display: flex !important;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.relative.flex-grow.flex.flex-col.justify-center.items-center.h-screen {
+    background: transparent !important;
+}
+
+.relative.flex-grow.flex.flex-col.justify-center.items-center.h-screen {
+    position: relative;
+    z-index: 0;
+}
+
+.bg-video,
+.video-overlay {
+    z-index: -2;
+}
+
+/* Remove qualquer fundo branco de elementos principais */
+.card,
+.slide,
+.slide-container,
+.footer,
+.site-footer,
+.container {
+    background: transparent !important;
+    box-shadow: none !important;
+}
+
+.header-title,
+.header-subtitle {
+  color: #fff !important;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.18);
 }

@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zoe Corretora de Seguros - Campanha Interativa</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Warm Neutrals with Burgundy Accent -->
+    <!-- Application Structure Plan: A single-page application with a "slide" structure, allowing horizontal navigation between three distinct promotional messages. The structure includes a header, a main content area that acts as a slider for the three sections, and navigation controls (dots and arrows). Each slide focuses on a single call-to-action (Instagram, Google Review, WhatsApp) with a prominent QR code. This slide-based approach provides a focused, engaging, and modern user experience, guiding the user through different interaction points without overwhelming them. -->
+    <!-- Visualization & Content Choices: Report Info: Company Name, Slogans, Offers, QR Codes -> Goal: Promotion/Action, Engagement -> Viz/Presentation: Styled text for branding and instructions, large QR code images as primary calls-to-action, engaging icons/emojis. Each slide is designed as a distinct visual unit. -> Interaction: Smooth horizontal slide transitions, interactive navigation dots/arrows. Hover effects on QR codes. -> Justification: The slide format is ideal for sequential storytelling and distinct calls-to-action. HTML and Tailwind CSS are used for layout and styling, and vanilla JavaScript for the slide functionality and animations, ensuring no SVG or Mermaid JS is used. Placeholder images are used for Google and WhatsApp QR codes as they were not provided. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #FDFBF8;
+            color: #4A4A4A;
+            overflow: hidden; /* Prevent all scrolling */
+        }
+        .bg-burgundy-dark {
+            background-color: #8B0000; /* Dark Burgundy */
+        }
+        .text-burgundy-light {
+            color: #B22222; /* Lighter Burgundy/Firebrick */
+        }
+        .slide-container {
+            display: flex;
+            transition: transform 0.7s ease-in-out;
+            width: 100%; /* Each slide will take 100% of the container width */
+        }
+        .slide {
+            flex: 0 0 100%; /* Each slide takes full width and doesn't shrink */
+            width: 100%;
+            height: 100%; /* Ensure slide takes full available height */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 0.25rem; /* Further reduce padding for maximum content space */
+            box-sizing: border-box;
+        }
+        .fade-in {
+            animation: fadeInAnimation 1s ease-in-out forwards;
+        }
+        @keyframes fadeInAnimation {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .card {
+            background-color: #FFFFFF;
+            border: 1px solid #EAEAEA;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            flex-grow: 1; /* Allow card to grow */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 0.75rem; /* Adjust card padding */
+            max-width: 95%; /* Constrain card width */
+            max-height: 95%; /* Constrain card height */
+            overflow: hidden; /* Hide any overflow within the card */
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 30px -10px rgba(0, 0, 0, 0.1);
+        }
+        .qr-code-main {
+            width: auto;
+            height: auto;
+            max-width: 160px; /* Smaller default size */
+            max-height: 160px;
+            object-fit: contain; /* Ensure image fits without cropping */
+        }
+        .qr-code-secondary {
+            width: auto;
+            height: auto;
+            max-width: 60px; /* Smaller default size */
+            max-height: 60px;
+            object-fit: contain;
+        }
+        /* Media queries for responsiveness */
+        @media (max-width: 768px) { /* Mobile Portrait */
+            .qr-code-main {
+                max-width: 130px;
+                max-height: 130px;
+            }
+            .qr-code-secondary {
+                max-width: 50px;
+                max-height: 50px;
+            }
+            .text-3xl { font-size: 2rem; }
+            .text-lg { font-size: 1.125rem; }
+            .text-base { font-size: 1rem; }
+            .text-sm { font-size: 0.875rem; }
+            .text-xs { font-size: 0.75rem; }
+            .list-decimal { margin-top: 0.5rem; } /* Adjust list margin */
+        }
+        @media (min-width: 769px) and (max-width: 1023px) { /* Tablet Landscape */
+            .qr-code-main {
+                max-width: 180px;
+                max-height: 180px;
+            }
+            .qr-code-secondary {
+                max-width: 70px;
+                max-height: 70px;
+            }
+            .text-3xl { font-size: 2.25rem; }
+            .text-lg { font-size: 1.25rem; }
+            .text-base { font-size: 1.125rem; }
+            .text-sm { font-size: 1rem; }
+            .text-xs { font-size: 0.875rem; }
+        }
+        @media (min-width: 1024px) and (orientation: landscape) { /* Desktop/Larger Landscape */
+            .slide {
+                padding: 0.25rem;
+            }
+            .card {
+                padding: 0.75rem;
+                max-width: 450px; /* Slightly smaller card width for more space */
+                max-height: 450px;
+            }
+            .qr-code-main {
+                max-width: 180px;
+                max-height: 180px;
+            }
+            .qr-code-secondary {
+                max-width: 70px;
+                max-height: 70px;
+            }
+            .text-3xl { font-size: 2.5rem; }
+            .text-lg { font-size: 1.375rem; }
+            .text-base { font-size: 1.25rem; }
+            .text-sm { font-size: 1.125rem; }
+            .text-xs { font-size: 1rem; }
+            .list-decimal { margin-top: 0.5rem; } /* Adjust list margin */
+        }
+
+        .nav-button {
+            background-color: rgba(139, 0, 0, 0.8); /* Burgundy with transparency */
+            color: white;
+            padding: 0.75rem 1.25rem;
+            border-radius: 9999px; /* Full rounded */
+            font-size: 1.5rem;
+            line-height: 1;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 10;
+        }
+        .nav-button:hover {
+            background-color: #B22222; /* Lighter burgundy on hover */
+            transform: translateY(-50%) scale(1.05);
+        }
+        .nav-button.left {
+            left: 1rem;
+        }
+        .nav-button.right {
+            right: 1rem;
+        }
+        .dot {
+            width: 12px;
+            height: 12px;
+            background-color: rgba(139, 0, 0, 0.4);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .dot.active {
+            background-color: #8B0000;
+        }
+
+        /* Background Animation Styles */
+        .animated-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #FDFBF8, #F5EFE9, #EFE7E0, #F5EFE9, #FDFBF8);
+            background-size: 400% 400%;
+            animation: gradientAnimation 10s ease infinite;
+            z-index: -1; /* Ensure it's behind the content */
+        }
+
+        @keyframes gradientAnimation {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+    </style>
+</head>
+<body class="antialiased flex flex-col min-h-screen">
+
+    <div class="animated-background"></div>
+
+    <div id="app-container" class="relative flex-grow flex flex-col justify-center items-center opacity-0 h-screen"> <!-- Ensure app-container takes full screen height -->
+
+        <header class="text-center py-1 w-full"> <!-- Further reduce header padding -->
+            <h1 class="text-xl md:text-3xl font-bold text-burgundy-dark tracking-tight">ZOE CORRETORA DE SEGUROS</h1> <!-- Smaller font for header -->
+            <p class="text-sm md:text-base text-gray-500 mt-0.5 font-light">Seu futuro seguro, com a gente!</p> <!-- Smaller font for slogan -->
+        </header>
+
+        <div class="relative w-full overflow-hidden flex-grow flex items-center h-full"> <!-- Ensure this div takes full available height -->
+            <button id="prevBtn" class="nav-button left">&#10094;</button>
+            <div id="slideContainer" class="slide-container h-full"> <!-- Ensure slideContainer takes full available height -->
+
+                <!-- Slide 1: Instagram -->
+                <section class="slide">
+                    <div class="card max-w-xl mx-auto rounded-2xl p-3 text-center"> <!-- Reduce max-w and padding -->
+                        <div class="flex justify-center mb-1"> <!-- Reduce margin-bottom -->
+                            <span class="text-3xl">🎁</span> <!-- Smaller emoji -->
+                        </div>
+                        <h2 class="text-lg md:text-xl font-bold text-burgundy-dark">Conecte-se e ganhe um bombom!</h2> <!-- Smaller font -->
+                        <p class="mt-1 text-xs text-gray-600 max-w-md mx-auto">Para celebrar a sua visita, temos um presente especial. Siga-nos no Instagram e ganhe um delicioso bombom!</p> <!-- Smaller font -->
+
+                        <div class="mt-2 text-left inline-block"> <!-- Reduce margin-top -->
+                            <ol class="list-decimal list-inside space-y-0.5 text-gray-700 text-xs"> <!-- Smaller font and spacing -->
+                                <li><span class="font-semibold">Escaneie</span> o QR Code abaixo.</li>
+                                <li><span class="font-semibold">Siga</span> nossa página no Instagram.</li>
+                                <li><span class="font-semibold">Apresente</span> a tela para nossa equipe e retire seu prêmio!</li>
+                            </ol>
+                        </div>
+
+                        <div class="mt-2 flex flex-col items-center"> <!-- Reduce margin-top -->
+                            <img src="image_a4d07b.png" alt="QR Code para o Instagram da Zoe Corretora de Seguros" class="qr-code-main rounded-xl object-cover card transition-transform duration-300 hover:scale-105">
+                            <p class="mt-1 text-sm font-semibold text-gray-800 tracking-wider">@ZOECORRETORASEGUROS</p> <!-- Smaller font -->
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Slide 2: Google Review -->
+                <section class="slide">
+                    <div class="card max-w-xl mx-auto rounded-2xl p-3 text-center">
+                        <div class="flex justify-center mb-1">
+                            <span class="text-3xl">⭐</span>
+                        </div>
+                        <h2 class="text-lg md:text-xl font-bold text-burgundy-dark">Avalie-nos no Google!</h2>
+                        <p class="mt-1 text-xs text-gray-600 max-w-md mx-auto">Sua opinião é muito importante para nós! Ajude-nos a melhorar e compartilhe sua experiência.</p>
+
+                        <div class="mt-2 text-left inline-block">
+                            <ol class="list-decimal list-inside space-y-0.5 text-gray-700 text-xs">
+                                <li><span class="font-semibold">Escaneie</span> o QR Code abaixo.</li>
+                                <li><span class="font-semibold">Deixe sua avaliação</span> no Google.</li>
+                                <li><span class="font-semibold">Ajude</span> outros clientes a nos encontrar!</li>
+                            </ol>
+                        </div>
+
+                        <div class="mt-2 flex flex-col items-center">
+                            <img src="https://placehold.co/280x280/8B0000/FFFFFF?text=QR+Code+Google" alt="QR Code para avaliação no Google" class="qr-code-main rounded-xl object-cover card transition-transform duration-300 hover:scale-105">
+                            <p class="mt-1 text-sm font-semibold text-gray-800 tracking-wider">Avalie Zoe Corretora</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Slide 3: WhatsApp Contact -->
+                <section class="slide">
+                    <div class="card max-w-xl mx-auto rounded-2xl p-3 text-center">
+                        <div class="flex justify-center mb-1">
+                            <span class="text-3xl">📱</span>
+                        </div>
+                        <h2 class="text-lg md:text-xl font-bold text-burgundy-dark">Fale Conosco pelo WhatsApp!</h2>
+                        <p class="mt-1 text-xs text-gray-600 max-w-md mx-auto">Tem dúvidas ou precisa de ajuda? Entre em contato direto com nossa equipe via WhatsApp.</p>
+
+                        <div class="mt-2 text-left inline-block">
+                            <ol class="list-decimal list-inside space-y-0.5 text-gray-700 text-xs">
+                                <li><span class="font-semibold">Escaneie</span> o QR Code abaixo.</li>
+                                <li><span class="font-semibold">Envie sua mensagem</span> para um atendimento rápido.</li>
+                                <li><span class="font-semibold">Estamos prontos</span> para te ajudar!</li>
+                            </ol>
+                        </div>
+
+                        <div class="mt-2 flex flex-col items-center">
+                            <img src="https://placehold.co/280x280/8B0000/FFFFFF?text=QR+Code+WhatsApp" alt="QR Code para contato via WhatsApp" class="qr-code-main rounded-xl object-cover card transition-transform duration-300 hover:scale-105">
+                            <p class="mt-1 text-sm font-semibold text-gray-800 tracking-wider">Converse com a gente!</p>
+                        </div>
+
+                        <div class="mt-4 text-center"> <!-- Reduce margin-top -->
+                            <h3 class="text-base font-semibold text-gray-700 mb-1">Outras formas de contacto</h3> <!-- Smaller font -->
+                            <div class="flex flex-wrap justify-center items-center gap-2 md:gap-4"> <!-- Reduce gap -->
+                                <div class="flex flex-col items-center card p-2 rounded-xl"> <!-- Reduce padding -->
+                                    <h4 class="font-semibold text-gray-800 mb-0.5 text-xs">Fale Conosco</h4> <!-- Smaller font -->
+                                    <img src="image_a4d09a.png" alt="QR Code para contacto geral" class="qr-code-secondary rounded-lg object-cover transition-transform duration-300 hover:scale-105">
+                                </div>
+                                <div class="flex flex-col items-center card p-2 rounded-xl">
+                                    <h4 class="font-semibold text-gray-800 mb-0.5 text-xs">Nosso Website</h4>
+                                    <img src="image_a4d05e.png" alt="QR Code para o website" class="qr-code-secondary rounded-lg object-cover transition-transform duration-300 hover:scale-105">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+            <button id="nextBtn" class="nav-button right">&#10095;</button>
+        </div>
+
+        <div class="flex justify-center mt-2 mb-2 space-x-1" id="dotsContainer"> <!-- Reduce margin and space-x -->
+            <span class="dot active" data-slide="0"></span>
+            <span class="dot" data-slide="1"></span>
+            <span class="dot" data-slide="2"></span>
+        </div>
+
+        <footer class="text-center py-1 w-full border-t border-gray-200"> <!-- Further reduce footer padding -->
+            <p class="text-gray-500 text-xs">&copy; 2025 ZOE CORRETORA DE SEGUROS LTDA. Todos os direitos reservados.</p> <!-- Smallest font -->
+        </footer>
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const appContainer = document.getElementById('app-container');
+            const slideContainer = document.getElementById('slideContainer');
+            const slides = document.querySelectorAll('.slide');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const dotsContainer = document.getElementById('dotsContainer');
+            let currentSlide = 0;
+            let autoSlideInterval; // Variável para armazenar o ID do intervalo
+
+            // Initial fade-in for the whole app
+            if (appContainer) {
+                appContainer.classList.add('fade-in');
+            }
+
+            // Create dots for navigation
+            slides.forEach((_, index) => {
+                const dot = document.createElement('span');
+                dot.classList.add('dot');
+                if (index === 0) dot.classList.add('active');
+                dot.dataset.slide = index;
+                dot.addEventListener('click', () => {
+                    goToSlide(index);
+                    resetAutoSlide(); // Reinicia o auto-slide ao clicar nos pontos
+                });
+                dotsContainer.appendChild(dot);
+            });
+
+            function updateSlidePosition() {
+                slideContainer.style.transform = `translateX(-${currentSlide * 100}%)`;
+                updateDots();
+            }
+
+            function updateDots() {
+                document.querySelectorAll('.dot').forEach((dot, index) => {
+                    if (index === currentSlide) {
+                        dot.classList.add('active');
+                    } else {
+                        dot.classList.remove('active');
+                    }
+                });
+            }
+
+            function goToSlide(index) {
+                currentSlide = index;
+                updateSlidePosition();
+            }
+
+            function nextSlide() {
+                currentSlide = (currentSlide === slides.length - 1) ? 0 : currentSlide + 1;
+                updateSlidePosition();
+            }
+
+            prevBtn.addEventListener('click', () => {
+                currentSlide = (currentSlide === 0) ? slides.length - 1 : currentSlide - 1;
+                updateSlidePosition();
+                resetAutoSlide(); // Reinicia o auto-slide ao clicar nos botões de navegação
+            });
+
+            nextBtn.addEventListener('click', () => {
+                nextSlide();
+                resetAutoSlide(); // Reinicia o auto-slide ao clicar nos botões de navegação
+            });
+
+            function startAutoSlide() {
+                autoSlideInterval = setInterval(nextSlide, 5000); // Passa para o próximo slide a cada 5 segundos
+            }
+
+            function resetAutoSlide() {
+                clearInterval(autoSlideInterval); // Limpa o intervalo existente
+                startAutoSlide(); // Inicia um novo intervalo
+            }
+
+            // Inicia o auto-slide quando a página carrega
+            startAutoSlide();
+        });
+    </script>
+
+</body>
+</html>
