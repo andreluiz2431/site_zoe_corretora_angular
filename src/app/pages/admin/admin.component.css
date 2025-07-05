@@ -1,0 +1,57 @@
+.admin-page {
+  min-height: 100vh;
+  background: #f8fafc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.admin-page .container {
+  max-width: 700px;
+  width: 100%;
+  margin: 0 auto;
+  background: #fff;
+  border-radius: 1.5rem;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.10);
+  padding: 2.5rem 2rem;
+}
+.admin-page .content {
+  width: 100%;
+}
+.admin-page h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #8B0000;
+  margin-bottom: 0.5rem;
+}
+.admin-page p {
+  color: #444;
+  margin-bottom: 2rem;
+}
+.admin-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: flex-start;
+}
+.admin-nav .nav-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #f8f8f8;
+  border-radius: 1rem;
+  padding: 1rem 1.5rem;
+  color: #8B0000;
+  font-weight: 600;
+  font-size: 1.1rem;
+  text-decoration: none;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+}
+.admin-nav .nav-item:hover {
+  background: #8B0000;
+  color: #fff;
+  box-shadow: 0 4px 16px rgba(139,0,0,0.10);
+}
+.admin-nav .icon {
+  font-size: 1.5rem;
+}
