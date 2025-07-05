@@ -1,4 +1,5 @@
 @import '../../../../global_styles.css';
+@import '../../../pages/quote/quote.component.css';
 
 .social-media-post-page {
   min-height: 100vh;
@@ -17,11 +18,11 @@
 }
 
 .social-media-post-container {
-  background-color: var(--bg-color);
-  border-radius: var(--border-radius);
-  box-shadow: var(--box-shadow);
-  padding: calc(var(--spacing-base) * 4);
-  max-width: 480px;
+  background: none;
+  box-shadow: none;
+  border-radius: 0;
+  padding: 0;
+  max-width: 800px;
   margin: 0 auto;
 }
 
@@ -39,12 +40,71 @@ mat-card {
 
 .platforms {
   display: flex;
-  gap: 16px;
+  gap: 1rem;
   margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+.platforms .mat-checkbox {
+  background: var(--bg-secondary);
+  border-radius: var(--border-radius);
+  padding: 0.5rem 1rem;
+  color: var(--text-color) !important;
+  transition: background 0.2s, color 0.2s;
+}
+.platforms .mat-checkbox-checked.mat-accent .mat-checkbox-background,
+.platforms .mat-checkbox-checked .mat-checkbox-background {
+  background-color: var(--red-primary) !important;
+}
+@media (max-width: 600px) {
+  .platforms {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
 }
 
 .image-upload-area {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
   margin-bottom: 16px;
+}
+
+.custom-upload-label {
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  background: var(--bg-secondary);
+  color: var(--red-primary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  padding: 0.5rem 1.2rem;
+  font-weight: 500;
+  font-size: 1rem;
+  transition: background 0.2s, color 0.2s, border 0.2s;
+}
+.custom-upload-label:hover {
+  background: var(--red-primary);
+  color: #fff;
+  border-color: var(--red-primary);
+}
+.upload-btn i {
+  font-size: 1.2rem;
+  margin-right: 0.5rem;
+}
+.image-preview {
+  margin-top: 0.5rem;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  max-width: 220px;
+  max-height: 220px;
+}
+.image-preview img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
 }
 
 .admin-slide-btn {
@@ -74,4 +134,28 @@ mat-card {
 
 .admin-slide-btn i {
   font-size: 1.4rem;
+}
+
+.btn.btn-lg[mat-raised-button] {
+  background: var(--red-primary) !important;
+  color: #fff !important;
+  border: none;
+  box-shadow: var(--box-shadow);
+  transition: background 0.2s, color 0.2s;
+}
+.btn.btn-lg[mat-raised-button]:hover {
+  background: var(--red-dark) !important;
+  color: #fff !important;
+}
+
+.dark-theme .btn.btn-lg[mat-raised-button] {
+  background: var(--red-light) !important;
+  color: #fff !important;
+}
+.dark-theme .btn.btn-lg[mat-raised-button]:hover {
+  background: var(--red-primary) !important;
+}
+.dark-theme .platforms .mat-checkbox {
+  background: var(--gray-800);
+  color: var(--gray-200) !important;
 }
