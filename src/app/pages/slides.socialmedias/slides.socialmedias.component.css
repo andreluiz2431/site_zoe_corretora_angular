@@ -48,6 +48,8 @@ body {
     padding-right: 5rem;
     max-width: 50%;
     max-height: 95%;
+    min-width: 380px;
+    min-height: 380px;
     overflow: hidden;
     align-items: stretch;
 }
