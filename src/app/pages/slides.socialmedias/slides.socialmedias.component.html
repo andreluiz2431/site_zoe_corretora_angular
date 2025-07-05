@@ -130,7 +130,5 @@
     </footer>
 
     <!-- Botão destacado para área administrativa -->
-    <a *ngIf="!hideNavFooter" routerLink="/admin" class="admin-slide-btn">
-      <i class='bx bxs-cog'></i> Ir para área administrativa
-    </a>
+    <app-admin-back-btn *ngIf="!hideNavFooter"></app-admin-back-btn>
 </div>

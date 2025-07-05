@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { AdminBackBtnComponent } from '../../shared/components/admin-back-btn/admin-back-btn.component';
 
 @Component({
   selector: 'app-slides-socialmedias',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, AdminBackBtnComponent],
   templateUrl: './slides.socialmedias.component.html',
   styleUrls: ['./slides.socialmedias.component.css']
 })

@@ -54,6 +54,12 @@ export const routes: Routes = [
     path: 'slides-socialmedias',
     loadComponent: () => import('./pages/slides.socialmedias/slides.socialmedias.component').then(m => m.SlidesSocialmediasComponent)
   },
+  {
+    path: 'admin/social-media-post',
+    loadComponent: () => import('./shared/components/social-media-post/social-media-post.component').then(m => m.SocialMediaPostComponent),
+    canActivate: [AuthGuard],
+    data: { roles: ['ADMIN', 'SUPER_ADMIN'] }
+  },
   { 
     path: '**', 
     loadComponent: () => import('./pages/not-found/not-found.component').then(m => m.NotFoundComponent) 
