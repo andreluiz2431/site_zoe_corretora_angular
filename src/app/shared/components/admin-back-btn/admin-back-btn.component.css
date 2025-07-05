@@ -28,3 +28,18 @@
 .admin-slide-btn i {
   font-size: 1.4rem;
 }
+
+@media (max-width: 600px) {
+  .admin-slide-btn {
+    padding: 0.7rem 0.9rem;
+    right: 1rem;
+    left: unset;
+    min-width: unset;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    justify-content: center;
+  }
+  .admin-slide-btn .btn-text {
+    display: none;
+  }
+}
