@@ -111,25 +111,28 @@ interface SocialMediaPost {
 - Feedback visual do progresso
 ```
 
-### 8. Estilização
+### 8. Integração com Área Administrativa
+- [ ] Adicionar um botão ou link de redirecionamento para a tela de postagem de redes sociais no menu da área administrativa (admin). O usuário deve conseguir acessar facilmente a funcionalidade de postagem a partir do painel admin.
+
+### 9. Estilização
 - Criar estilos responsivos
 - Implementar preview de imagem
 - Adicionar animações de feedback
 - Garantir boa experiência mobile
 
-### 9. Tratamento de Erros
+### 10. Tratamento de Erros
 - Implementar mensagens de erro amigáveis
 - Validar tamanho e formato de imagem
 - Verificar conexão com APIs
 - Feedback de sucesso/erro na postagem
 
-### 10. Testes
+### 11. Testes
 - [ ] Testes unitários do serviço
 - [ ] Testes unitários do componente
 - [ ] Testes de integração
 - [ ] Testes de usuário
 
-### 11. Documentação
+### 12. Documentação
 - Documentar processo de autenticação
 - Documentar limites de API
 - Criar guia de troubleshooting
